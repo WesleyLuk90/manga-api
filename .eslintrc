@@ -1,0 +1,6 @@
+extends: airbnb-base
+env:
+    jasmine: true
+rules:
+    indent: [1, 4]
+    class-methods-use-this: [0]

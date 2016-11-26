@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 class MangaRepository {
     /**
      * @returns
@@ -6,7 +7,9 @@ class MangaRepository {
         throw new Error('Not Implemented');
     }
 
-
+    search(filters, options) {
+        throw new Error('Not Implemented');
+    }
 }
 
 module.exports = MangaRepository;
