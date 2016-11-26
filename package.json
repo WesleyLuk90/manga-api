@@ -1,17 +1,22 @@
 {
-    "devDependencies": {
-        "eslint": "^3.11.0",
-        "eslint-config-airbnb-base": "^10.0.1",
-        "eslint-plugin-import": "^2.2.0",
-        "jasmine": "^2.5.2"
-    },
-    "scripts": {
-        "test": "jasmine"
-    },
-    "name": "manga-api",
-    "version": "1.0.0",
-    "main": "index.js",
-    "repository": "https://github.com/WesleyLuk90/manga-api.git",
-    "author": "Wesley Luk <wesleyluk@wesleyluk.com>",
-    "license": "MIT"
+  "devDependencies": {
+    "eslint": "^3.11.0",
+    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "jasmine": "^2.5.2"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "name": "manga-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/WesleyLuk90/manga-api.git",
+  "author": "Wesley Luk <wesleyluk@wesleyluk.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "lodash": "^4.17.2",
+    "superagent": "^3.0.0"
+  }
 }

@@ -5,5 +5,8 @@ describe('MangaRepository', () => {
         const repo = new MangaRepository();
         expect(() => repo.search()).toThrowError(/Not Implemented/);
         expect(() => repo.getCapabilities()).toThrowError(/Not Implemented/);
+        expect(() => repo.getManga()).toThrowError(/Not Implemented/);
+        expect(() => repo.getChapter()).toThrowError(/Not Implemented/);
+        expect(() => repo.getPage()).toThrowError(/Not Implemented/);
     });
 });

@@ -4,3 +4,4 @@ env:
 rules:
     indent: [1, 4]
     class-methods-use-this: [0]
+    no-underscore-dangle: [0]

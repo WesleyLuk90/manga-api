@@ -1,23 +1,75 @@
 const RepositoryListFactory = require('../repositories/RepositoryListFactory');
 const MangaHandle = require('../sdk/MangaHandle');
+const Manga = require('../sdk/Manga');
+const Chapter = require('../sdk/Chapter');
+const ChapterHandle = require('../sdk/ChapterHandle');
+const Page = require('../sdk/Page');
+const PageHandle = require('../sdk/PageHandle');
 
-describe('Repository', () => {
-    RepositoryListFactory
-        .create()
-        .getAll()
-        .forEach((repository) => {
-            describe(repository, () => {
-                it('should search', (done) => {
-                    repository.search()
-                        .then((results) => {
-                            expect(results.length > 0).toBe(true);
-                            results
-                                .forEach(result =>
-                                    expect(result instanceof MangaHandle).toBe(true));
-                        })
-                        .catch(fail)
-                        .then(done);
-                });
+function testRepository(repository) {
+    describe(repository.getName(), () => {
+        const cap = repository.getCapabilities();
+        it('should search', (done) => {
+            repository.search()
+                .then((results) => {
+                    expect(Array.isArray(results)).toBe(true);
+                    expect(results.length > 0).toBe(true);
+                    expect(results.every(m => m instanceof MangaHandle))
+                        .toBe(true);
+                    if (cap.supportsUrlMangaHandles()) {
+                        results.forEach(r =>
+                            expect(typeof r.getUrl()).toBe('string'));
+                    }
+                })
+                .catch(fail)
+                .then(done);
+        });
+
+        it('should get name', () => {
+            expect(typeof repository.getName()).toBe('string');
+        });
+
+        it('should throw errors for invalid paramters', () => {
+            expect(() => repository.getManga({})).toThrowError(/Requires a MangaHandle/);
+        });
+
+        describe('Manga, Chapters and Pages', () => {
+            let mangaHandles;
+            beforeEach((done) => {
+                expect(mangaHandles).toBeUndefined();
+                return repository.search()
+                    .then((results) => {
+                        mangaHandles = results;
+                    })
+                    .catch(fail)
+                    .then(done);
+            });
+
+            it('should implement manga, chapters and pages', (done) => {
+                const testMangaHandle = mangaHandles[0];
+
+                repository.getManga(testMangaHandle)
+                    .then((manga) => {
+                        expect(manga instanceof Manga).toBe(true);
+                        expect(manga.getHandle() instanceof MangaHandle).toBe(true);
+
+                        expect(Array.isArray(manga.getChapters())).toBe(true);
+                        expect(manga.getChapters()
+                            .every(ch => ch instanceof ChapterHandle)).toBe(true);
+                        expect(manga.getChapter(0)).toBe(manga.getChapters()[0]);
+
+                        return repository.getChapter(manga.getChapter(0));
+                    })
+                    .catch(fail)
+                    .then(done);
             });
         });
-});
+    });
+}
+
+RepositoryListFactory
+    .create()
+    .getAll()
+    .forEach((repository) => {
+        testRepository(repository);
+    });
