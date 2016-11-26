@@ -31,6 +31,8 @@ function testRepository(repository) {
 
         it('should throw errors for invalid paramters', () => {
             expect(() => repository.getManga({})).toThrowError(/Requires a MangaHandle/);
+            expect(() => repository.getChapter({})).toThrowError(/Requires a ChapterHandle/);
+            expect(() => repository.getPage({})).toThrowError(/Requires a PageHandle/);
         });
 
         describe('Manga, Chapters and Pages', () => {
@@ -50,8 +52,8 @@ function testRepository(repository) {
 
                 repository.getManga(testMangaHandle)
                     .then((manga) => {
-                        expect(manga instanceof Manga).toBe(true);
-                        expect(manga.getHandle() instanceof MangaHandle).toBe(true);
+                        expect(manga).toBeInstanceOf(Manga);
+                        expect(manga.getMangaHandle()).toBeInstanceOf(MangaHandle);
 
                         expect(Array.isArray(manga.getChapters())).toBe(true);
                         expect(manga.getChapters()
@@ -59,6 +61,22 @@ function testRepository(repository) {
                         expect(manga.getChapter(0)).toBe(manga.getChapters()[0]);
 
                         return repository.getChapter(manga.getChapter(0));
+                    })
+                    .then((chapter) => {
+                        expect(chapter).toBeInstanceOf(Chapter);
+                        expect(typeof chapter.getTitle()).toBe('string');
+                        expect(typeof chapter.getChapter()).toBe('string');
+                        expect(typeof chapter.getVolume()).toBe('string');
+                        expect(Array.isArray(chapter.getPages())).toBe(true);
+
+                        chapter.getPages().forEach((page) => {
+                            expect(page).toBeInstanceOf(PageHandle);
+                        });
+                        return repository.getPage(chapter.getPage(0));
+                    })
+                    .then((page) => {
+                        expect(page).toBeInstanceOf(Page);
+                        expect(typeof page.getImageUrl()).toBe('string');
                     })
                     .catch(fail)
                     .then(done);

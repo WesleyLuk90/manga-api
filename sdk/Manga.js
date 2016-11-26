@@ -55,8 +55,8 @@ class Manga {
         if (this.chapters == null) {
             throw new Error('No chapters set');
         }
-        if (index >= this.chapters.length) {
-            throw new Error(`Invalid chapter index ${index}`);
+        if (index >= this.chapters.length || index < 0) {
+            throw new Error(`Chapter index out of bounds, ${index} must be between 0 and ${this.chapters.length - 1}`);
         }
         return this.chapters[index];
     }

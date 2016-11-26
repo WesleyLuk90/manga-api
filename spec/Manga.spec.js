@@ -34,4 +34,11 @@ describe('Manga', () => {
         expect(() => manga.setAltNames({})).toThrowError(/altNames must be an array/);
         expect(() => manga.setChapters({})).toThrowError(/chapters must be an array/);
     });
+
+    it('should check chapter bounds', () => {
+        const manga = new Manga(new MangaHandle())
+            .setChapters([1, 2, 3]);
+        expect(() => manga.getChapter(-1)).toThrowError(/Chapter index out of bounds, -1 must be between 0 and 2/);
+        expect(() => manga.getChapter(3)).toThrowError(/Chapter index out of bounds, 3 must be between 0 and 2/);
+    });
 });

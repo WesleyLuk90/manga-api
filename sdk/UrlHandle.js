@@ -10,7 +10,7 @@ class UrlHandle {
     }
 
     setUrl(url) {
-        if (typeof(url) !== 'string') {
+        if (typeof url !== 'string') {
             throw new Error('Url must be a string');
         }
         this.url = url;

@@ -1,4 +1,6 @@
-class ChapterHandle {
+const UrlHandle = require('./UrlHandle');
+
+class ChapterHandle extends UrlHandle {
 
 }
 

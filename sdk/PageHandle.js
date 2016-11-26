@@ -1,4 +1,6 @@
-class PageHandle {
+const UrlHandle = require('./UrlHandle');
+
+class PageHandle extends UrlHandle {
 
 }
 
