@@ -60,6 +60,12 @@ function testRepository(repository) {
                             .every(ch => ch instanceof ChapterHandle)).toBe(true);
                         expect(manga.getChapter(0)).toBe(manga.getChapters()[0]);
 
+                        if (cap.supportsUrlChapterHandles()) {
+                            manga.getChapters()
+                                .forEach(c =>
+                                    expect(typeof c.getUrl()).toBe('string'));
+                        }
+
                         return repository.getChapter(manga.getChapter(0));
                     })
                     .then((chapter) => {
@@ -72,6 +78,13 @@ function testRepository(repository) {
                         chapter.getPages().forEach((page) => {
                             expect(page).toBeInstanceOf(PageHandle);
                         });
+
+                        if (cap.supportsUrlPageHandles()) {
+                            chapter.getPages()
+                                .forEach(p =>
+                                    expect(typeof p.getUrl()).toBe('string'));
+                        }
+
                         return repository.getPage(chapter.getPage(0));
                     })
                     .then((page) => {
