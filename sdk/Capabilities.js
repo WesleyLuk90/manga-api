@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const Fields = require('./Fields');
+const Filters = require('./Filters');
 
 class Capabilities {
     constructor() {
@@ -49,6 +50,29 @@ class Capabilities {
         });
         this.searchableFields = fields;
         return this;
+    }
+
+    validateFilters(filters) {
+        if (!(filters instanceof Filters)) {
+            throw new Error('Expected filters to be an instance of Filters');
+        }
+        const included = filters.getIncludedTags();
+        const excluded = filters.getExcludedTags();
+        if (!this.supportsTagFiltering()) {
+            if (included.length > 0 || excluded.length > 0) {
+                throw new Error('Tag filtering not supported');
+            }
+        } else {
+            const extraIncluded = _.difference(included, this.getTagOptions());
+            if (extraIncluded.length > 0) {
+                throw new Error(`Tags not supported ${extraIncluded.join(', ')}`);
+            }
+            const extraExcluded = _.difference(excluded, this.getTagOptions());
+            if (extraExcluded.length > 0) {
+                throw new Error(`Tags not supported ${extraIncluded.join(', ')}`);
+            }
+        }
+        return true;
     }
 }
 

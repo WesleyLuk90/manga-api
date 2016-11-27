@@ -1,7 +1,8 @@
 const Capabilities = require('../sdk/Capabilities');
 const Fields = require('../sdk/Fields');
+const Filters = require('../sdk/Filters');
 
-describe('Capabilities', () => {
+fdescribe('Capabilities', () => {
     it('should create getters and setters with default values', () => {
         const cap = new Capabilities();
         expect(cap.supportsUrlMangaHandles()).toBe(true);
@@ -33,5 +34,28 @@ describe('Capabilities', () => {
         expect(capabilities.setSearchableFields([Fields.TITLE, Fields.AUTHOR])).toBe(capabilities);
 
         expect(capabilities.getSearchableFields()).toEqual([Fields.TITLE, Fields.AUTHOR]);
+    });
+
+    describe('validating filters', () => {
+        let cap;
+        let filters;
+        beforeEach(() => {
+            cap = new Capabilities();
+            filters = new Filters();
+        });
+        it('should validate filters', () => {
+            expect(cap.validateFilters(filters)).toBe(true);
+        });
+        it('should not validate wrong tags', () => {
+            filters.setIncludedTags(['d', 'b', 'a', 'e']);
+            expect(() => cap.validateFilters(filters)).toThrowError(/Tag filtering not supported/);
+
+            cap.setTagOptions(['a', 'b', 'c']);
+            cap.setFilterByIncludingTags(true);
+            expect(() => cap.validateFilters(filters)).toThrowError(/Tags not supported d, e/);
+
+            cap.setTagOptions(['a', 'b', 'c', 'd', 'e']);
+            expect(cap.validateFilters(filters)).toBe(true);
+        });
     });
 });
