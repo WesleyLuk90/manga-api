@@ -16,6 +16,11 @@ describe('Filters', () => {
         expect(filters.setExcludedTags(['d', 'e', 'f'])).toBe(filters);
         expect(filters.getIncludedTags()).toEqual(['a', 'b', 'c']);
         expect(filters.getExcludedTags()).toEqual(['d', 'e', 'f']);
+
+        expect(filters.hasIncludedTag('a')).toBe(true);
+        expect(filters.hasIncludedTag('z')).toBe(false);
+        expect(filters.hasExcludedTag('d')).toBe(true);
+        expect(filters.hasExcludedTag('z')).toBe(false);
     });
 
     it('should set search fields', () => {

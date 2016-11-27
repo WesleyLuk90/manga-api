@@ -31,6 +31,14 @@ class Filters {
         return this;
     }
 
+    hasIncludedTag(tag) {
+        return this.includedTags.indexOf(tag) > -1;
+    }
+
+    hasExcludedTag(tag) {
+        return this.excludedTags.indexOf(tag) > -1;
+    }
+
     _checkField(field) {
         if (!(field instanceof Field)) {
             throw new Error('Expected field to be an instance of Field');

@@ -10,6 +10,7 @@ const Chapter = require('../../sdk/Chapter');
 const Page = require('../../sdk/Page');
 const Fields = require('../../sdk/Fields');
 const HtmlToolkit = require('../HtmlToolkit');
+const Filters = require('../../sdk/Filters');
 
 class MangaFox extends MangaRepository {
 
@@ -128,6 +129,7 @@ class MangaFox extends MangaRepository {
     }
 
     _buildSearch(filters) {
+        filters = filters || new Filters();
         const url = 'http://mangafox.me/search.php';
         const released = {
             released_method: 'eq',
@@ -136,21 +138,29 @@ class MangaFox extends MangaRepository {
             rating: '',
             is_completed: '',
             advopts: '1',
+            sort: 'last_chapter_time',
+            order: 'za',
         };
         const searchMethod = {
             name_method: 'cw',
-            name: '',
+            name: filters.getSearchField(Fields.TITLE),
             type: '',
             author_method: 'cw',
-            author: '',
+            author: filters.getSearchField(Fields.AUTHOR),
             artist_method: 'cw',
-            artist: '',
+            artist: filters.getSearchField(Fields.ARTIST),
         };
         const genres = {
             genres: {},
         };
         this.getCapabilities().getTagOptions().forEach((option) => {
-            genres.genres[option] = '0';
+            if (filters.hasIncludedTag(option)) {
+                genres.genres[option] = '1';
+            } else if (filters.hasExcludedTag(option)) {
+                genres.genres[option] = '2';
+            } else {
+                genres.genres[option] = '0';
+            }
         });
         return superagent.get(url)
             .query(searchMethod)
