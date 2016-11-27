@@ -1,3 +1,5 @@
+const Utils = require('./Utils');
+
 class Manga {
     constructor(mangaHandle) {
         if (mangaHandle == null) {
@@ -11,36 +13,6 @@ class Manga {
 
     getMangaHandle() {
         return this.mangaHandle;
-    }
-
-    getName() {
-        if (this.name == null) {
-            throw new Error('No name set');
-        }
-        return this.name;
-    }
-
-    setName(name) {
-        if (typeof name !== 'string') {
-            throw new Error('name must be a string');
-        }
-        this.name = name;
-        return this;
-    }
-
-    setAltNames(altNames) {
-        if (!Array.isArray(altNames)) {
-            throw new Error('altNames must be an array');
-        }
-        this.altNames = altNames;
-        return this;
-    }
-
-    getAltNames() {
-        if (this.altNames == null) {
-            throw new Error('No alt names set');
-        }
-        return this.altNames.slice();
     }
 
     setChapters(chapters) {
@@ -68,5 +40,14 @@ class Manga {
         return this.chapters.slice();
     }
 }
+
+Utils.defineStringGetterSetter(Manga, 'previewImageUrl');
+Utils.defineStringGetterSetter(Manga, 'name');
+Utils.defineStringGetterSetter(Manga, 'releaseYear');
+Utils.defineStringGetterSetter(Manga, 'summary');
+Utils.defineArrayGetterSetter(Manga, 'altNames');
+Utils.defineArrayGetterSetter(Manga, 'authors');
+Utils.defineArrayGetterSetter(Manga, 'artists');
+Utils.defineArrayGetterSetter(Manga, 'genres');
 
 module.exports = Manga;

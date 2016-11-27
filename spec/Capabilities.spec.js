@@ -2,7 +2,7 @@ const Capabilities = require('../sdk/Capabilities');
 const Fields = require('../sdk/Fields');
 const Filters = require('../sdk/Filters');
 
-fdescribe('Capabilities', () => {
+describe('Capabilities', () => {
     it('should create getters and setters with default values', () => {
         const cap = new Capabilities();
         expect(cap.supportsUrlMangaHandles()).toBe(true);
@@ -56,6 +56,9 @@ fdescribe('Capabilities', () => {
 
             cap.setTagOptions(['a', 'b', 'c', 'd', 'e']);
             expect(cap.validateFilters(filters)).toBe(true);
+        });
+        it('should not validate wrong search fields', () => {
+
         });
     });
 });

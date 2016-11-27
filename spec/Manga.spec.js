@@ -2,6 +2,19 @@ const Manga = require('../sdk/Manga');
 const MangaHandle = require('../sdk/MangaHandle');
 
 describe('Manga', () => {
+    it('should have default values', () => {
+        const someHandle = new MangaHandle();
+        const manga = new Manga(someHandle);
+
+        expect(manga.getName()).toBe(null);
+        expect(manga.getAltNames()).toBe(null);
+        expect(manga.getAuthors()).toBe(null);
+        expect(manga.getArtists()).toBe(null);
+        expect(manga.getPreviewImageUrl()).toBe(null);
+        expect(manga.getReleaseYear()).toBe(null);
+        expect(manga.getSummary()).toBe(null);
+        expect(manga.getGenres()).toBe(null);
+    });
     it('should get and set values', () => {
         const someHandle = new MangaHandle();
         const manga = new Manga(someHandle)
@@ -22,16 +35,14 @@ describe('Manga', () => {
     it('should require values to be set before they can be get', () => {
         const manga = new Manga(new MangaHandle());
 
-        expect(() => manga.getName()).toThrowError(/No name set/);
-        expect(() => manga.getAltNames()).toThrowError(/No alt names set/);
         expect(() => manga.getChapters()).toThrowError(/No chapters set/);
         expect(() => manga.getChapter(0)).toThrowError(/No chapters set/);
     });
 
     it('should validate parameters', () => {
         const manga = new Manga(new MangaHandle());
-        expect(() => manga.setName({})).toThrowError(/name must be a string/);
-        expect(() => manga.setAltNames({})).toThrowError(/altNames must be an array/);
+        expect(() => manga.setName({})).toThrowError(/Expected a string/);
+        expect(() => manga.setAltNames({})).toThrowError(/Expected an array/);
         expect(() => manga.setChapters({})).toThrowError(/chapters must be an array/);
     });
 

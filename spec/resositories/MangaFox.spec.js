@@ -1,9 +1,10 @@
 const MangaFox = require('../../repositories/MangaFox/MangaFox');
 const url = require('url');
 const Fields = require('../../sdk/Fields');
+const querystring = require('querystring');
 
 describe('MangaFox', () => {
-    it('should format the url', (done) => {
+    it('should format the url', () => {
         const mangaFox = new MangaFox();
         const expectedQuery = {
             name_method: 'cw',
@@ -57,16 +58,17 @@ describe('MangaFox', () => {
             sort: 'last_chapter_time',
             order: 'za',
         };
-        mangaFox._buildSearch()
-            .then((response) => {
-                const parsedUrl = url.parse(response.req.path, true);
-                expect(parsedUrl.pathname).toEqual('/search.php');
-                Object.keys(parsedUrl.query).forEach((key) => {
-                    expect(`${key}: ${parsedUrl.query[key]}`).toEqual(`${key}: ${expectedQuery[key]}`);
-                });
-            })
-            .catch(fail)
-            .then(done);
+        const request = mangaFox._buildSearch();
+        const urlObject = {
+            pathname: request.url,
+            query: querystring.stringify(request.qs),
+        };
+        const formattedUrl = url.format(urlObject);
+        const parsedUrl = url.parse(formattedUrl, true);
+        expect(parsedUrl.pathname).toBe('/search.php');
+        Object.keys(parsedUrl.query).forEach((key) => {
+            expect(`${key}: ${parsedUrl.query[key]}`).toEqual(`${key}: ${expectedQuery[key]}`);
+        });
     });
     it('should generate page urls', () => {
         const mangaFox = new MangaFox();
