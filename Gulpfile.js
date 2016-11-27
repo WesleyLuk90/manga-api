@@ -6,13 +6,17 @@ const config = {
         'spec/helpers/**/*.js',
     ],
 };
+const jasmineConfig = { config, includeStackTrace: true };
 
-const nonRepoSpecs = ['spec/**/*.spec.js', '!spec/Repositories.spec.js'];
+const allSpecs = 'spec/**/*.spec.js';
+const repoSpecs = 'spec/Repositories.spec.js';
+
+const nonRepoSpecs = [allSpecs, `!${repoSpecs}`];
 const watchFiles = ['sdk/**/*.js', 'repositories/**/*.js', 'spec/**/*.spec.js'];
 
 gulp.task('test', () => {
     gulp.src(nonRepoSpecs)
-        .pipe(jasmine({ config, includeStackTrace: true }))
+        .pipe(jasmine(jasmineConfig))
         .on('error', () => {});
 });
 
@@ -21,6 +25,18 @@ gulp.task('test:watch', ['test'], () => {
 });
 
 gulp.task('test-repo', () => {
-    gulp.src(['spec/**/*.spec.js', '!spec/Repositories.spec.js'])
-        .pipe(jasmine({ config }));
+    gulp.src(['spec/Repositories.spec.js'])
+        .pipe(jasmine(jasmineConfig))
+        .on('error', () => {});
+});
+
+
+gulp.task('test-repo:watch', ['test-repo'], () => {
+    gulp.watch(watchFiles, ['test-repo']);
+});
+
+gulp.task('default', () => {
+    gulp.src(allSpecs)
+        .pipe(jasmine(jasmineConfig))
+        .on('err', () => {});
 });

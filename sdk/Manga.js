@@ -45,6 +45,7 @@ Utils.defineStringGetterSetter(Manga, 'previewImageUrl');
 Utils.defineStringGetterSetter(Manga, 'name');
 Utils.defineStringGetterSetter(Manga, 'releaseYear');
 Utils.defineStringGetterSetter(Manga, 'summary');
+Utils.defineStringGetterSetter(Manga, 'status');
 Utils.defineArrayGetterSetter(Manga, 'altNames');
 Utils.defineArrayGetterSetter(Manga, 'authors');
 Utils.defineArrayGetterSetter(Manga, 'artists');

@@ -19,6 +19,7 @@ describe('UrlHandle', () => {
         const handle = MyUrlSubclass.fromUrl('a b c');
 
         const unserializedHandle = MyUrlSubclass.unserialize(handle.serialize());
+        expect(unserializedHandle).toBeInstanceOf(MyUrlSubclass);
         expect(unserializedHandle.getUrl()).toBe('a b c');
     });
 });

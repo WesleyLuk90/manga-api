@@ -7,7 +7,7 @@ class UrlHandle {
     }
 
     static unserialize(data) {
-        return UrlHandle.fromUrl(data);
+        return this.fromUrl(data);
     }
 
     constructor() {

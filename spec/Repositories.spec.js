@@ -5,10 +5,25 @@ const Chapter = require('../sdk/Chapter');
 const ChapterHandle = require('../sdk/ChapterHandle');
 const Page = require('../sdk/Page');
 const PageHandle = require('../sdk/PageHandle');
+const path = require('path');
+const Rx = require('rx');
 
 function testRepository(repository) {
     describe(repository.getName(), () => {
         const cap = repository.getCapabilities();
+        let data;
+        beforeEach(() => {
+            if (!data) {
+                const testDataPath = path.join(__dirname, `repository-data/${repository.getName()}.js`);
+                try {
+                    /* eslint-disable */
+                    data = require(testDataPath);
+                    /* eslint-enable */
+                } catch (e) {
+                    console.warn(`No test data found for ${repository.getName()} at ${testDataPath}`);
+                }
+            }
+        });
         it('should search', (done) => {
             repository.search()
                 .then((results) => {
@@ -93,6 +108,29 @@ function testRepository(repository) {
                     })
                     .catch(fail)
                     .then(done);
+            });
+        });
+        describe('with data', () => {
+            it('should get manga data', (done) => {
+                Rx.Observable.from(data.manga_tests)
+                    .flatMapWithMaxConcurrent(1, mangaTest => Rx.Observable.defer(() => {
+                        const mangaHandle = MangaHandle.unserialize(mangaTest.handle);
+                        return repository.getManga(mangaHandle)
+                            .then((manga) => {
+                                Object.keys(mangaTest.results)
+                                    .filter(c => c !== 'chapters')
+                                    .forEach((resultKey) => {
+                                        expect(manga[resultKey])
+                                            .toEqual(mangaTest.results[resultKey]);
+                                    });
+                            })
+                            .then(null, (e) => {
+                                console.log('got an error', e);
+                                throw e;
+                            });
+                    }))
+                    .finally(done)
+                    .subscribe(() => {}, fail);
             });
         });
     });

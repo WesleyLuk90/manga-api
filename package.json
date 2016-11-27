@@ -5,7 +5,8 @@
     "eslint-plugin-import": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.4.2",
-    "jasmine": "^2.5.2"
+    "jasmine": "^2.5.2",
+    "rx": "^4.1.0"
   },
   "scripts": {
     "test": "jasmine"

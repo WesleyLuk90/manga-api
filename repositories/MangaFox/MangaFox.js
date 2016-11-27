@@ -9,6 +9,7 @@ const PageHandle = require('../../sdk/PageHandle');
 const Chapter = require('../../sdk/Chapter');
 const Page = require('../../sdk/Page');
 const Fields = require('../../sdk/Fields');
+const HtmlToolkit = require('../HtmlToolkit');
 
 class MangaFox extends MangaRepository {
 
@@ -72,10 +73,18 @@ class MangaFox extends MangaRepository {
                 const $ = res.document;
                 const links = $('a.tips');
                 const chapters = Array.from(links)
-                    .map(link => ChapterHandle.fromUrl($(link).attr('href')));
-
+                    .map(link => ChapterHandle.fromUrl($(link).attr('href')))
+                    .reverse();
                 return new Manga(mangaHandle)
-                    .setChapters(chapters);
+                    .setChapters(chapters)
+                    .setAltNames($('#title h3').text().split(';').map(a => a.trim()))
+                    .setReleaseYear(HtmlToolkit.text($('#title tr:nth-child(2) td:nth-child(1)')))
+                    .setAuthors(HtmlToolkit.textArray($('#title tr:nth-child(2) td:nth-child(2) a')))
+                    .setArtists(HtmlToolkit.textArray($('#title tr:nth-child(2) td:nth-child(3) a')))
+                    .setGenres(HtmlToolkit.textArray($('#title tr:nth-child(2) td:nth-child(4) a')))
+                    .setSummary(HtmlToolkit.text($('p.summary')))
+                    .setStatus(HtmlToolkit.text($('div.data span')[0]))
+                    .setName($('meta[property="og:title"]').attr('content').match(/(.*) Manga/)[1]);
             });
     }
 
