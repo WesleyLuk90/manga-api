@@ -5,6 +5,11 @@ class UrlHandle {
         }
         return new this().setUrl(url);
     }
+
+    static unserialize(data) {
+        return UrlHandle.fromUrl(data);
+    }
+
     constructor() {
         this.url = null;
     }
@@ -22,6 +27,10 @@ class UrlHandle {
             throw new Error('No url set');
         }
         return this.url;
+    }
+
+    serialize() {
+        return this.getUrl();
     }
 }
 module.exports = UrlHandle;

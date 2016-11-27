@@ -13,4 +13,12 @@ describe('UrlHandle', () => {
         class MyUrlSubclass extends UrlHandle {}
         expect(MyUrlSubclass.fromUrl('someurl')).toBeInstanceOf(MyUrlSubclass);
     });
+
+    it('should serialize and unserialize', () => {
+        class MyUrlSubclass extends UrlHandle {}
+        const handle = MyUrlSubclass.fromUrl('a b c');
+
+        const unserializedHandle = MyUrlSubclass.unserialize(handle.serialize());
+        expect(unserializedHandle.getUrl()).toBe('a b c');
+    });
 });
