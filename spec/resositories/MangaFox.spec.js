@@ -1,5 +1,6 @@
 const MangaFox = require('../../repositories/MangaFox/MangaFox');
 const url = require('url');
+const Fields = require('../../sdk/Fields');
 
 describe('MangaFox', () => {
     it('should format the url', (done) => {
@@ -56,7 +57,6 @@ describe('MangaFox', () => {
             sort: 'last_chapter_time',
             order: 'za',
         };
-
         mangaFox._buildSearch()
             .then((response) => {
                 const parsedUrl = url.parse(response.req.path, true);
@@ -77,5 +77,53 @@ describe('MangaFox', () => {
         expect(mangaFox._buildPageUrl('http://mangafox.me/manga/white_epic/c060/', '5')).toBe(expected);
 
         expect(mangaFox._buildPageUrl('http://mangafox.me/manga/white_epic/c060/v10/', '5')).toBe('http://mangafox.me/manga/white_epic/c060/v10/5.html');
+    });
+    it('should provide capabilities', () => {
+        const mangaFox = new MangaFox();
+        const cap = mangaFox.getCapabilities();
+
+        expect(cap.getSearchableFields()).toContain(Fields.TITLE);
+        expect(cap.getSearchableFields()).toContain(Fields.AUTHOR);
+        expect(cap.getSearchableFields()).toContain(Fields.ARTIST);
+
+        const options = cap.getTagOptions();
+        options.sort();
+        expect(options).toEqual([
+            'Action',
+            'Adult',
+            'Adventure',
+            'Comedy',
+            'Doujinshi',
+            'Drama',
+            'Ecchi',
+            'Fantasy',
+            'Gender Bender',
+            'Harem',
+            'Historical',
+            'Horror',
+            'Josei',
+            'Martial Arts',
+            'Mature',
+            'Mecha',
+            'Mystery',
+            'One Shot',
+            'Psychological',
+            'Romance',
+            'School Life',
+            'Sci-fi',
+            'Seinen',
+            'Shoujo',
+            'Shoujo Ai',
+            'Shounen',
+            'Shounen Ai',
+            'Slice of Life',
+            'Smut',
+            'Sports',
+            'Supernatural',
+            'Tragedy',
+            'Webtoons',
+            'Yaoi',
+            'Yuri',
+        ]);
     });
 });

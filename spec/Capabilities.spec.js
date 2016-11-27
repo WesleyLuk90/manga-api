@@ -1,7 +1,7 @@
 const Capabilities = require('../sdk/Capabilities');
 const Fields = require('../sdk/Fields');
 
-fdescribe('Capabilities', () => {
+describe('Capabilities', () => {
     it('should create getters and setters with default values', () => {
         const cap = new Capabilities();
         expect(cap.supportsUrlMangaHandles()).toBe(true);

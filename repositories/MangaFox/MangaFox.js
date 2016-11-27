@@ -8,11 +8,50 @@ const Manga = require('../../sdk/Manga');
 const PageHandle = require('../../sdk/PageHandle');
 const Chapter = require('../../sdk/Chapter');
 const Page = require('../../sdk/Page');
+const Fields = require('../../sdk/Fields');
 
 class MangaFox extends MangaRepository {
 
     getCapabilities() {
-        return new Capabilities();
+        return new Capabilities()
+            .setSearchableFields([Fields.TITLE, Fields.ARTIST, Fields.AUTHOR])
+            .setTagOptions([
+                'Action',
+                'Adult',
+                'Adventure',
+                'Comedy',
+                'Doujinshi',
+                'Drama',
+                'Ecchi',
+                'Fantasy',
+                'Gender Bender',
+                'Harem',
+                'Historical',
+                'Horror',
+                'Josei',
+                'Martial Arts',
+                'Mature',
+                'Mecha',
+                'Mystery',
+                'One Shot',
+                'Psychological',
+                'Romance',
+                'School Life',
+                'Sci-fi',
+                'Seinen',
+                'Shoujo',
+                'Shoujo Ai',
+                'Shounen',
+                'Shounen Ai',
+                'Slice of Life',
+                'Smut',
+                'Sports',
+                'Supernatural',
+                'Tragedy',
+                'Webtoons',
+                'Yaoi',
+                'Yuri',
+            ]);
     }
 
     search(filters, options) {
@@ -79,7 +118,7 @@ class MangaFox extends MangaRepository {
         return `${match[1]}${pageKey}.html`;
     }
 
-    _buildSearch(filters, options) {
+    _buildSearch(filters) {
         const url = 'http://mangafox.me/search.php';
         const released = {
             released_method: 'eq',
@@ -99,44 +138,11 @@ class MangaFox extends MangaRepository {
             artist: '',
         };
         const genres = {
-            genres: {
-                Action: 0,
-                Adult: 0,
-                Adventure: 0,
-                Comedy: 0,
-                Doujinshi: 0,
-                Drama: 0,
-                Ecchi: 0,
-                Fantasy: 0,
-                'Gender Bender': 0,
-                Harem: 0,
-                Historical: 0,
-                Horror: 0,
-                Josei: 0,
-                'Martial Arts': 0,
-                Mature: 0,
-                Mecha: 0,
-                Mystery: 0,
-                'One Shot': 0,
-                Psychological: 0,
-                Romance: 0,
-                'School Life': 0,
-                'Sci-fi': 0,
-                Seinen: 0,
-                Shoujo: 0,
-                'Shoujo Ai': 0,
-                Shounen: 0,
-                'Shounen Ai': 0,
-                'Slice of Life': 0,
-                Smut: 0,
-                Sports: 0,
-                Supernatural: 0,
-                Tragedy: 0,
-                Webtoons: 0,
-                Yaoi: 0,
-                Yuri: 0,
-            },
+            genres: {},
         };
+        this.getCapabilities().getTagOptions().forEach((option) => {
+            genres.genres[option] = '0';
+        });
         return superagent.get(url)
             .query(searchMethod)
             .query(genres)
