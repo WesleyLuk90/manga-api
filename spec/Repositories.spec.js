@@ -14,7 +14,7 @@ function testRepository(repository) {
         let data;
         beforeEach(() => {
             if (!data) {
-                const testDataPath = path.join(__dirname, `repository-data/${repository.getName()}.js`);
+                const testDataPath = path.join(__dirname, `repository-data/${repository.getName()}.data.js`);
                 try {
                     /* eslint-disable */
                     data = require(testDataPath);
@@ -44,7 +44,7 @@ function testRepository(repository) {
             expect(typeof repository.getName()).toBe('string');
         });
 
-        fit('should throw errors for invalid paramters', () => {
+        it('should throw errors for invalid paramters', () => {
             expect(() => repository.getManga({})).toThrowError(/Requires a MangaHandle/);
             expect(() => repository.getChapter({})).toThrowError(/Requires a ChapterHandle/);
             expect(() => repository.getPage({})).toThrowError(/Requires a PageHandle/);
@@ -113,6 +113,9 @@ function testRepository(repository) {
         });
         describe('with data', () => {
             it('should get manga data', (done) => {
+                if (!data) {
+                    return done();
+                }
                 Rx.Observable.from(data.manga_tests)
                     .flatMapWithMaxConcurrent(1, mangaTest => Rx.Observable.defer(() => {
                         const mangaHandle = MangaHandle.unserialize(mangaTest.handle);
