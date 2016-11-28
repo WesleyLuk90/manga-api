@@ -1,6 +1,7 @@
 const MangaHandle = require('./MangaHandle');
 const ChapterHandle = require('./ChapterHandle');
 const PageHandle = require('./PageHandle');
+const Filters = require('./Filters');
 
 /* eslint-disable no-unused-vars */
 class MangaRepository {
@@ -45,6 +46,12 @@ class MangaRepository {
     _checkPageHandle(pageHandle) {
         if (!(pageHandle instanceof PageHandle)) {
             throw new Error('Requires a PageHandle');
+        }
+    }
+
+    _checkFilters(filters) {
+        if (!(filters instanceof Filters)) {
+            throw new Error('Requires filters');
         }
     }
 }

@@ -57,6 +57,9 @@ class MangaFox extends MangaRepository {
     }
 
     search(filters, options) {
+        if (filters) {
+            this._checkFilters(filters);
+        }
         return this._buildSearch(filters, options)
             .then((res) => {
                 const $ = res.document;
