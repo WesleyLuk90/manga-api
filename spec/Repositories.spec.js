@@ -112,21 +112,77 @@ function testRepository(repository) {
             });
         });
         describe('with data', () => {
+            function assertDataMatches(actual, expected, exclude) {
+                Object.keys(expected)
+                    .filter(c => !exclude || exclude.indexOf(c) === -1)
+                    .forEach((resultKey) => {
+                        expect(actual[resultKey])
+                            .toEqual(expected[resultKey]);
+                    });
+            }
+
+            function assertHandlesArray(actual, expected) {
+                expect(Array.isArray(actual));
+                expect(actual.map(c => c.getUrl()))
+                    .toEqual(expected);
+            }
+
             it('should get manga data', (done) => {
-                if (!data) {
-                    return done();
+                if (!data || !data.manga_tests) {
+                    console.warn(`No Data for manga tests for ${repository.getName()}`);
+                    done();
+                    return;
                 }
                 Rx.Observable.from(data.manga_tests)
                     .flatMapWithMaxConcurrent(1, mangaTest => Rx.Observable.defer(() => {
                         const mangaHandle = MangaHandle.unserialize(mangaTest.handle);
                         return repository.getManga(mangaHandle)
                             .then((manga) => {
-                                Object.keys(mangaTest.results)
-                                    .filter(c => c !== 'chapters')
-                                    .forEach((resultKey) => {
-                                        expect(manga[resultKey])
-                                            .toEqual(mangaTest.results[resultKey]);
-                                    });
+                                assertDataMatches(manga, mangaTest.results, ['chapters']);
+                                assertHandlesArray(manga.chapters, mangaTest.results.chapters);
+                            })
+                            .then(null, (e) => {
+                                console.log('got an error', e);
+                                throw e;
+                            });
+                    }))
+                    .finally(done)
+                    .subscribe(() => {}, fail);
+            });
+            it('should get chapter data', (done) => {
+                if (!data || !data.chapter_tests) {
+                    console.warn(`No Data for chapter tests for ${repository.getName()}`);
+                    done();
+                    return;
+                }
+                Rx.Observable.from(data.chapter_tests)
+                    .flatMapWithMaxConcurrent(1, chapterTest => Rx.Observable.defer(() => {
+                        const chapterHandle = ChapterHandle.unserialize(chapterTest.handle);
+                        return repository.getChapter(chapterHandle)
+                            .then((chapter) => {
+                                assertDataMatches(chapter, chapterTest.results, ['pages']);
+                                assertHandlesArray(chapter.pages, chapterTest.results.pages);
+                            })
+                            .then(null, (e) => {
+                                console.log('got an error', e);
+                                throw e;
+                            });
+                    }))
+                    .finally(done)
+                    .subscribe(() => {}, fail);
+            });
+            it('should get page data', (done) => {
+                if (!data || !data.page_tests) {
+                    console.warn(`No Data for page tests for ${repository.getName()}`);
+                    done();
+                    return;
+                }
+                Rx.Observable.from(data.page_tests)
+                    .flatMapWithMaxConcurrent(1, pageData => Rx.Observable.defer(() => {
+                        const pageHandle = PageHandle.unserialize(pageData.handle);
+                        return repository.getPage(pageHandle)
+                            .then((page) => {
+                                assertDataMatches(page, pageData.results);
                             })
                             .then(null, (e) => {
                                 console.log('got an error', e);
@@ -140,9 +196,30 @@ function testRepository(repository) {
     });
 }
 
-RepositoryListFactory
-    .create()
-    .getAll()
-    .forEach((repository) => {
-        testRepository(repository);
-    });
+function createTests() {
+    const index = process.argv.indexOf('--repository');
+    if (index > -1) {
+        const name = process.argv[index + 1];
+        const repo = RepositoryListFactory
+            .create()
+            .get(name);
+        if (!repo) {
+            console.error(`Repository ${name} does not exist`);
+            return;
+        }
+        testRepository(repo);
+    } else {
+        const list = RepositoryListFactory
+            .create();
+        list.getAll()
+            .forEach((repository) => {
+                testRepository(repository);
+            });
+        testRepository(list.get('MockRepository'));
+    }
+}
+try {
+    createTests();
+} catch (e) {
+    console.error(e.stack);
+}

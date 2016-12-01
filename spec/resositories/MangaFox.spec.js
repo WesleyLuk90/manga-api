@@ -1,7 +1,6 @@
 const MangaFox = require('../../repositories/MangaFox/MangaFox');
 const url = require('url');
 const Fields = require('../../sdk/Fields');
-const querystring = require('querystring');
 const Filters = require('../../sdk/Filters');
 const qs = require('qs');
 

@@ -11,6 +11,7 @@ const Page = require('../../sdk/Page');
 const Fields = require('../../sdk/Fields');
 const HtmlToolkit = require('../HtmlToolkit');
 const Filters = require('../../sdk/Filters');
+const Field = require('../../sdk/Field');
 
 class MangaFox extends MangaRepository {
 
@@ -77,7 +78,9 @@ class MangaFox extends MangaRepository {
                 const $ = res.document;
                 const links = $('a.tips');
                 const chapters = Array.from(links)
-                    .map(link => ChapterHandle.fromUrl($(link).attr('href')))
+                    .map(link => $(link).attr('href'))
+                    .map(link => this._normalizeChapterUrl(link))
+                    .map(link => ChapterHandle.fromUrl(link))
                     .reverse();
                 return new Manga(mangaHandle)
                     .setChapters(chapters)
@@ -90,6 +93,13 @@ class MangaFox extends MangaRepository {
                     .setStatus(HtmlToolkit.text($('div.data span')[0]))
                     .setName($('meta[property="og:title"]').attr('content').match(/(.*) Manga/)[1]);
             });
+    }
+
+    _normalizeChapterUrl(url) {
+        if (url.match(/1\.html$/)) {
+            return url;
+        }
+        return url + '1.html';
     }
 
     getChapter(chapterHandle) {
@@ -108,8 +118,18 @@ class MangaFox extends MangaRepository {
                     .map(u => PageHandle.fromUrl(u));
 
                 return new Chapter(chapterHandle)
-                    .setPages(pages);
+                    .setPages(pages)
+                    .setChapter(this._getChapterNumber($))
+                    .setVolume(this._getVolumeNumber($));
             });
+    }
+
+    _getVolumeNumber($) {
+        return HtmlToolkit.text($('#series strong').eq(0)).replace(/^v0*/, '');
+    }
+
+    _getChapterNumber($) {
+        return HtmlToolkit.text($('#series h1').eq(0)).match(/.*(\d+\.?\d*)$/)[1];
     }
 
     getPage(pageHandle) {

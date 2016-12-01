@@ -12,7 +12,7 @@ const allSpecs = 'spec/**/*.spec.js';
 const repoSpecs = 'spec/Repositories.spec.js';
 
 const nonRepoSpecs = [allSpecs, `!${repoSpecs}`];
-const watchFiles = ['sdk/**/*.js', 'repositories/**/*.js', 'spec/**/*.spec.js'];
+const watchFiles = ['sdk/**/*.js', 'repositories/**/*.js', 'spec/**/*.spec.js', 'spec/repository-data/*.data.js'];
 
 gulp.task('test', () => {
     gulp.src(nonRepoSpecs)

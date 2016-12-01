@@ -41,7 +41,7 @@ class Filters {
 
     _checkField(field) {
         if (!(field instanceof Field)) {
-            throw new Error('Expected field to be an instance of Field');
+            throw new Error(`Expected field to be an instance of Field, got ${field} instead`);
         }
     }
 

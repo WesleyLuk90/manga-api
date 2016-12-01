@@ -1,4 +1,5 @@
 const ChapterHandle = require('./ChapterHandle');
+const Utils = require('./Utils');
 
 class Chapter {
     constructor(chapterHandle) {
@@ -6,43 +7,13 @@ class Chapter {
             throw new Error('A ChapterHandle is required');
         }
         this.chapterHandle = chapterHandle;
-        this.title = '';
         this.chapter = '';
         this.volume = '';
+        this.title = '';
         this.pages = null;
     }
     getChapterHandle() {
         return this.chapterHandle;
-    }
-    setTitle(title) {
-        if (typeof title !== 'string') {
-            throw new Error('Title must be a string');
-        }
-        this.title = title;
-        return this;
-    }
-    getTitle() {
-        return this.title;
-    }
-    setVolume(volume) {
-        if (typeof volume !== 'string') {
-            throw new Error('Volume must be a string');
-        }
-        this.volume = volume;
-        return this;
-    }
-    getVolume() {
-        return this.volume;
-    }
-    setChapter(chapter) {
-        if (typeof chapter !== 'string') {
-            throw new Error('Chapter must be a string');
-        }
-        this.chapter = chapter;
-        return this;
-    }
-    getChapter() {
-        return this.chapter;
     }
     setPages(pages) {
         if (!Array.isArray(pages)) {
@@ -70,5 +41,9 @@ class Chapter {
         return this.pages;
     }
 }
+
+Utils.defineStringGetterSetter(Chapter, 'chapter');
+Utils.defineStringGetterSetter(Chapter, 'volume');
+Utils.defineStringGetterSetter(Chapter, 'title');
 
 module.exports = Chapter;
