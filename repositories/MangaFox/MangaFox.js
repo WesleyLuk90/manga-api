@@ -91,6 +91,7 @@ class MangaFox extends MangaRepository {
                     .setGenres(HtmlToolkit.textArray($('#title tr:nth-child(2) td:nth-child(4) a')))
                     .setSummary(HtmlToolkit.text($('p.summary')))
                     .setStatus(HtmlToolkit.text($('div.data span')[0]))
+                    .setPreviewImageUrl($('.cover img').attr('src'))
                     .setName($('meta[property="og:title"]').attr('content').match(/(.*) Manga/)[1]);
             });
     }
