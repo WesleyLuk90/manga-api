@@ -99,7 +99,7 @@ class MangaFox extends MangaRepository {
         if (url.match(/1\.html$/)) {
             return url;
         }
-        return url + '1.html';
+        return `${url}1.html`;
     }
 
     getChapter(chapterHandle) {
@@ -122,6 +122,10 @@ class MangaFox extends MangaRepository {
                     .setChapter(this._getChapterNumber($))
                     .setVolume(this._getVolumeNumber($));
             });
+    }
+
+    isForHandle(handle) {
+        return !!handle.url.match(/^http:\/\/mangafox\.me\//);
     }
 
     _getVolumeNumber($) {

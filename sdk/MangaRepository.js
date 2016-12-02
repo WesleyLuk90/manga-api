@@ -24,11 +24,15 @@ class MangaRepository {
         throw new Error('Not Implemented');
     }
 
-    getChapter(mangaHandle) {
+    getChapter(chapterHandle) {
         throw new Error('Not Implemented');
     }
 
-    getPage(mangaHandle) {
+    getPage(pageHandle) {
+        throw new Error('Not Implemented');
+    }
+
+    isForHandle(handle) {
         throw new Error('Not Implemented');
     }
 

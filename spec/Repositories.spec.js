@@ -65,7 +65,6 @@ function testRepository(repository) {
 
             it('should implement manga, chapters and pages', (done) => {
                 const testMangaHandle = mangaHandles[0];
-
                 repository.getManga(testMangaHandle)
                     .then((manga) => {
                         expect(manga).toBeInstanceOf(Manga);
@@ -136,6 +135,7 @@ function testRepository(repository) {
                 Rx.Observable.from(data.manga_tests)
                     .flatMapWithMaxConcurrent(1, mangaTest => Rx.Observable.defer(() => {
                         const mangaHandle = MangaHandle.unserialize(mangaTest.handle);
+                        expect(repository.isForHandle(mangaHandle)).toBe(true);
                         return repository.getManga(mangaHandle)
                             .then((manga) => {
                                 assertDataMatches(manga, mangaTest.results, ['chapters']);
@@ -158,6 +158,7 @@ function testRepository(repository) {
                 Rx.Observable.from(data.chapter_tests)
                     .flatMapWithMaxConcurrent(1, chapterTest => Rx.Observable.defer(() => {
                         const chapterHandle = ChapterHandle.unserialize(chapterTest.handle);
+                        expect(repository.isForHandle(chapterHandle)).toBe(true);
                         return repository.getChapter(chapterHandle)
                             .then((chapter) => {
                                 assertDataMatches(chapter, chapterTest.results, ['pages']);
@@ -180,6 +181,7 @@ function testRepository(repository) {
                 Rx.Observable.from(data.page_tests)
                     .flatMapWithMaxConcurrent(1, pageData => Rx.Observable.defer(() => {
                         const pageHandle = PageHandle.unserialize(pageData.handle);
+                        expect(repository.isForHandle(pageHandle)).toBe(true);
                         return repository.getPage(pageHandle)
                             .then((page) => {
                                 assertDataMatches(page, pageData.results);

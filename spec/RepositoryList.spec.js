@@ -1,5 +1,7 @@
 const RepositoryList = require('../repositories/RepositoryList');
 const RepositoryListFactory = require('../repositories/RepositoryListFactory');
+const MockRepository = require('../repositories/MockRepository/MockRepository');
+const MangaHandle = require('../sdk/MangaHandle');
 
 describe('RepositoryList', () => {
     it('should create a repository list', () => {
@@ -20,5 +22,11 @@ describe('RepositoryList', () => {
         list.getAll().forEach((repo) => {
             expect(repo.getName()).not.toBe('MockRepository');
         });
+    });
+
+    it('should get the repository for a handle', () => {
+        const list = RepositoryListFactory.create();
+        expect(list.getRepositoryForHandle(MangaHandle.fromUrl('nothing'))).toBe(null);
+        expect(list.getRepositoryForHandle(MangaHandle.fromUrl('mock://stuff'))).toBeInstanceOf(MockRepository);
     });
 });

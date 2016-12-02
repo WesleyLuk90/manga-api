@@ -33,5 +33,9 @@ class MockRepository extends MangaRepository {
         this._checkPageHandle(pageHandle);
         return Promise.resolve(new Page(pageHandle).setImageUrl('mock://image'));
     }
+
+    isForHandle(handle) {
+        return !!handle.url.match(/^mock:\/\//);
+    }
 }
 module.exports = MockRepository;
