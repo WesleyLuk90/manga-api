@@ -2,10 +2,38 @@ const _ = require('lodash');
 const Fields = require('./Fields');
 const Filters = require('./Filters');
 
+const booleanCapabilities = {
+    urlMangaHandles: true,
+    urlChapterHandles: true,
+    urlPageHandles: true,
+    filterByIncludingTags: false,
+    filterByExcludingTags: false,
+};
+
+function defineDefaultCapabilities(capabilities) {
+    Object.keys(booleanCapabilities).forEach((cap) => {
+        const supportsName = _.camelCase(`supports_${cap}`);
+        const setterName = _.camelCase(`set_${cap}`);
+        const defaultValue = booleanCapabilities[cap];
+        capabilities[cap] = defaultValue;
+        capabilities[supportsName] = function getter() {
+            return this[cap];
+        };
+        capabilities[setterName] = function setter(newValue) {
+            if (typeof newValue !== 'boolean') {
+                throw new Error(`Value for ${cap} must be a boolean not ${newValue}`);
+            }
+            this[cap] = newValue;
+            return this;
+        };
+    });
+}
+
 class Capabilities {
     constructor() {
         this.tagOptions = null;
         this.searchableFields = null;
+        defineDefaultCapabilities(this);
     }
 
     supportsTagFiltering() {
@@ -75,31 +103,5 @@ class Capabilities {
         return true;
     }
 }
-
-const booleanCapabilities = {
-    urlMangaHandles: true,
-    urlChapterHandles: true,
-    urlPageHandles: true,
-    filterByIncludingTags: false,
-    filterByExcludingTags: false,
-};
-
-Object.keys(booleanCapabilities).forEach((cap) => {
-    const supportsName = _.camelCase(`supports_${cap}`);
-    const setterName = _.camelCase(`set_${cap}`);
-    const defaultValue = booleanCapabilities[cap];
-
-    Capabilities.prototype[cap] = defaultValue;
-    Capabilities.prototype[supportsName] = function getter() {
-        return this[cap];
-    };
-    Capabilities.prototype[setterName] = function setter(newValue) {
-        if (typeof newValue !== 'boolean') {
-            throw new Error(`Value for ${cap} must be a boolean not ${newValue}`);
-        }
-        this[cap] = newValue;
-        return this;
-    };
-});
 
 module.exports = Capabilities;

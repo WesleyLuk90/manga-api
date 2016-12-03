@@ -49,7 +49,6 @@ describe('Capabilities', () => {
         it('should not validate wrong tags', () => {
             filters.setIncludedTags(['d', 'b', 'a', 'e']);
             expect(() => cap.validateFilters(filters)).toThrowError(/Tag filtering not supported/);
-
             cap.setTagOptions(['a', 'b', 'c']);
             cap.setFilterByIncludingTags(true);
             expect(() => cap.validateFilters(filters)).toThrowError(/Tags not supported d, e/);
@@ -59,6 +58,22 @@ describe('Capabilities', () => {
         });
         it('should not validate wrong search fields', () => {
 
+        });
+    });
+
+    describe('serializing', () => {
+        it('should serialize with default properties', () => {
+            const cap = new Capabilities();
+            const data = JSON.parse(JSON.stringify(cap));
+            const expectedProperties = [
+                'urlMangaHandles',
+                'urlChapterHandles',
+                'urlPageHandles',
+                'filterByIncludingTags',
+                'filterByExcludingTags',
+            ];
+            expectedProperties.forEach(
+                property => expect(data[property]).not.toBeUndefined());
         });
     });
 });
