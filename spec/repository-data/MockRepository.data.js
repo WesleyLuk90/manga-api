@@ -32,4 +32,13 @@ module.exports = {
             imageUrl: 'mock://image',
         },
     }],
+    capabilities: {
+        searchableFields: null,
+        tagOptions: null,
+        urlMangaHandles: true,
+        urlChapterHandles: true,
+        urlPageHandles: true,
+        filterByIncludingTags: false,
+        filterByExcludingTags: false,
+    },
 };

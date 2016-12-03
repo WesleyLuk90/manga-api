@@ -11,7 +11,6 @@ const Page = require('../../sdk/Page');
 const Fields = require('../../sdk/Fields');
 const HtmlToolkit = require('../HtmlToolkit');
 const Filters = require('../../sdk/Filters');
-const Field = require('../../sdk/Field');
 
 class MangaFox extends MangaRepository {
 
@@ -54,7 +53,9 @@ class MangaFox extends MangaRepository {
                 'Webtoons',
                 'Yaoi',
                 'Yuri',
-            ]);
+            ])
+            .setFilterByIncludingTags(true)
+            .setFilterByExcludingTags(true);
     }
 
     search(filters, options) {
