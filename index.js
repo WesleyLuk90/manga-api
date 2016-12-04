@@ -5,6 +5,8 @@ const Chapter = require('./sdk/Chapter');
 const ChapterHandle = require('./sdk/ChapterHandle');
 const Page = require('./sdk/Page');
 const PageHandle = require('./sdk/PageHandle');
+const Fields = require('./sdk/Fields');
+const Filters = require('./sdk/Filters');
 
 module.exports = {
     RepositoryListFactory,
@@ -14,4 +16,6 @@ module.exports = {
     ChapterHandle,
     Page,
     PageHandle,
+    Fields,
+    Filters,
 };
