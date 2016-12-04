@@ -37,5 +37,9 @@ class MockRepository extends MangaRepository {
     isForHandle(handle) {
         return !!handle.url.match(/^mock:\/\//);
     }
+
+    listLatest() {
+        return Promise.resolve([MangaHandle.fromUrl('mock://manga'), MangaHandle.fromUrl('mock://manga')]);
+    }
 }
 module.exports = MockRepository;

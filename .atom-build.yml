@@ -1,6 +1,8 @@
 cmd: gulp test
 targets:
-    MangaFox:
+    'Repositories: All':
+        cmd: gulp test-repo
+    'Repositories: MangaFox':
         cmd: gulp test-repo --repository MangaFox
-    MockRepository:
+    'Repositories: MockRepository':
         cmd: gulp test-repo --repository MockRepository

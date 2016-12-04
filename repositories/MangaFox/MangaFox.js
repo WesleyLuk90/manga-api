@@ -97,11 +97,8 @@ class MangaFox extends MangaRepository {
             });
     }
 
-    _normalizeChapterUrl(url) {
-        if (url.match(/1\.html$/)) {
-            return url;
-        }
-        return `${url}1.html`;
+    listLatest() {
+        return this.search();
     }
 
     getChapter(chapterHandle) {
@@ -126,18 +123,6 @@ class MangaFox extends MangaRepository {
             });
     }
 
-    isForHandle(handle) {
-        return !!handle.url.match(/^http:\/\/mangafox\.me\//);
-    }
-
-    _getVolumeNumber($) {
-        return HtmlToolkit.text($('#series strong').eq(0)).replace(/^v0*/, '');
-    }
-
-    _getChapterNumber($) {
-        return HtmlToolkit.text($('#series h1').eq(0)).match(/.*(\d+\.?\d*)$/)[1];
-    }
-
     getPage(pageHandle) {
         this._checkPageHandle(pageHandle);
 
@@ -147,6 +132,26 @@ class MangaFox extends MangaRepository {
                 return new Page(pageHandle)
                     .setImageUrl($('#image').attr('src'));
             });
+    }
+
+
+    isForHandle(handle) {
+        return !!handle.url.match(/^http:\/\/mangafox\.me\//);
+    }
+
+    _normalizeChapterUrl(url) {
+        if (url.match(/1\.html$/)) {
+            return url;
+        }
+        return `${url}1.html`;
+    }
+
+    _getVolumeNumber($) {
+        return HtmlToolkit.text($('#series strong').eq(0)).replace(/^v0*/, '');
+    }
+
+    _getChapterNumber($) {
+        return HtmlToolkit.text($('#series h1').eq(0)).match(/.*(\d+\.?\d*)$/)[1];
     }
 
     _buildPageUrl(chapterUrl, pageKey) {

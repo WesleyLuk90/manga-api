@@ -8,6 +8,8 @@ const booleanCapabilities = {
     urlPageHandles: true,
     filterByIncludingTags: false,
     filterByExcludingTags: false,
+    searching: true,
+    listingLatest: true,
 };
 
 function defineDefaultCapabilities(capabilities) {

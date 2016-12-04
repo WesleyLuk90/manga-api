@@ -86,5 +86,7 @@ module.exports = {
         urlPageHandles: true,
         filterByIncludingTags: true,
         filterByExcludingTags: true,
+        searching: true,
+        listingLatest: true,
     },
 };

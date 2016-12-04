@@ -36,6 +36,10 @@ class MangaRepository {
         throw new Error('Not Implemented');
     }
 
+    listLatest() {
+        throw new Error('Not Implemented');
+    }
+
     _checkMangaHandle(mangaHandle) {
         if (!(mangaHandle instanceof MangaHandle)) {
             throw new Error('Requires a MangaHandle');

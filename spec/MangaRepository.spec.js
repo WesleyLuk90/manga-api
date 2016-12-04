@@ -9,5 +9,6 @@ describe('MangaRepository', () => {
         expect(() => repo.getChapter()).toThrowError(/Not Implemented/);
         expect(() => repo.getPage()).toThrowError(/Not Implemented/);
         expect(() => repo.isForHandle()).toThrowError(/Not Implemented/);
+        expect(() => repo.listLatest()).toThrowError(/Not Implemented/);
     });
 });
