@@ -194,7 +194,7 @@ function testRepository(repository) {
                     .finally(done)
                     .subscribe(() => {}, fail);
             });
-            fit('should expose capabilitites', () => {
+            it('should expose capabilitites', () => {
                 const capData = JSON.parse(JSON.stringify(cap));
                 Object.keys(capData).forEach((key) => {
                     expect(data.capabilities[key]).toEqual(capData[key]);
