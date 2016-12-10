@@ -151,7 +151,7 @@ class MangaFox extends MangaRepository {
     }
 
     _getChapterNumber($) {
-        return HtmlToolkit.text($('#series h1').eq(0)).match(/.*(\d+\.?\d*)$/)[1];
+        return HtmlToolkit.text($('#series h1').eq(0)).match(/.*?(\d+\.?\d*)$/)[1];
     }
 
     _buildPageUrl(chapterUrl, pageKey) {

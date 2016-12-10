@@ -3,6 +3,7 @@ const url = require('url');
 const Fields = require('../../sdk/Fields');
 const Filters = require('../../sdk/Filters');
 const qs = require('qs');
+const cheerio = require('cheerio');
 
 describe('MangaFox', () => {
     describe('query formatter', () => {
@@ -175,5 +176,11 @@ describe('MangaFox', () => {
             'Yaoi',
             'Yuri',
         ]);
+    });
+
+    it('should parse the chapter number', () => {
+        const mangaFox = new MangaFox();
+        const element = cheerio.load('<div id="series"><h1>Seshiji o Pin! to - Shikakou Kyougi Dance-bu e Youkoso 47</h1></div>');
+        expect(mangaFox._getChapterNumber(element)).toBe('47');
     });
 });
