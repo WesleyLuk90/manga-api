@@ -65,7 +65,7 @@ class MangaFox extends MangaRepository {
         return this._buildSearch(filters, options)
             .then((res) => {
                 const $ = res.document;
-                const links = $('#listing tr td:first-child a');
+                const links = $('#mangalist li a.title');
                 return Array.from(links)
                     .map(link => MangaHandle.fromUrl($(link).attr('href')));
             });

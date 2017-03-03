@@ -42,7 +42,7 @@ class MangaRepository {
 
     _checkMangaHandle(mangaHandle) {
         if (!(mangaHandle instanceof MangaHandle)) {
-            throw new Error('Requires a MangaHandle');
+            throw new Error(`Requires a MangaHandle but got ${mangaHandle}`);
         }
     }
 
