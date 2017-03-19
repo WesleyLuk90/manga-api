@@ -1,74 +1,21 @@
 const superagent = require('superagent');
 
 const MangaRepository = require('../../sdk/MangaRepository');
-const MangaHandle = require('../../sdk/MangaHandle');
 const ChapterHandle = require('../../sdk/ChapterHandle');
-const Capabilities = require('../../sdk/Capabilities');
 const Manga = require('../../sdk/Manga');
 const PageHandle = require('../../sdk/PageHandle');
 const Chapter = require('../../sdk/Chapter');
 const Page = require('../../sdk/Page');
-const Fields = require('../../sdk/Fields');
 const HtmlToolkit = require('../HtmlToolkit');
-const Filters = require('../../sdk/Filters');
+const MangaFoxSearch = require('./MangaFoxSearch');
+const MangaFoxCapabilitiesOperation = require('./MangaFoxCapabilitiesOperation');
 
 class MangaFox extends MangaRepository {
 
-    getCapabilities() {
-        return new Capabilities()
-            .setSearchableFields([Fields.TITLE, Fields.ARTIST, Fields.AUTHOR])
-            .setTagOptions([
-                'Action',
-                'Adult',
-                'Adventure',
-                'Comedy',
-                'Doujinshi',
-                'Drama',
-                'Ecchi',
-                'Fantasy',
-                'Gender Bender',
-                'Harem',
-                'Historical',
-                'Horror',
-                'Josei',
-                'Martial Arts',
-                'Mature',
-                'Mecha',
-                'Mystery',
-                'One Shot',
-                'Psychological',
-                'Romance',
-                'School Life',
-                'Sci-fi',
-                'Seinen',
-                'Shoujo',
-                'Shoujo Ai',
-                'Shounen',
-                'Shounen Ai',
-                'Slice of Life',
-                'Smut',
-                'Sports',
-                'Supernatural',
-                'Tragedy',
-                'Webtoons',
-                'Yaoi',
-                'Yuri',
-            ])
-            .setFilterByIncludingTags(true)
-            .setFilterByExcludingTags(true);
-    }
-
-    search(filters, options) {
-        if (filters) {
-            this._checkFilters(filters);
-        }
-        return this._buildSearch(filters, options)
-            .then((res) => {
-                const $ = res.document;
-                const links = $('#mangalist li a.title');
-                return Array.from(links)
-                    .map(link => MangaHandle.fromUrl($(link).attr('href')));
-            });
+    constructor() {
+        super();
+        this.setSearchOperation(new MangaFoxSearch());
+        this.setCapabilitiesOperation(new MangaFoxCapabilitiesOperation());
     }
 
     getManga(mangaHandle) {
@@ -160,46 +107,6 @@ class MangaFox extends MangaRepository {
             throw new Error(`Failed to find base url in ${chapterUrl}`);
         }
         return `${match[1]}${pageKey}.html`;
-    }
-
-    _buildSearch(filters) {
-        filters = filters || new Filters();
-        const url = 'http://mangafox.me/search.php';
-        const released = {
-            released_method: 'eq',
-            released: '',
-            rating_method: 'eq',
-            rating: '',
-            is_completed: '',
-            advopts: '1',
-            sort: 'last_chapter_time',
-            order: 'za',
-        };
-        const searchMethod = {
-            name_method: 'cw',
-            name: filters.getSearchField(Fields.TITLE),
-            type: '',
-            author_method: 'cw',
-            author: filters.getSearchField(Fields.AUTHOR),
-            artist_method: 'cw',
-            artist: filters.getSearchField(Fields.ARTIST),
-        };
-        const genres = {
-            genres: {},
-        };
-        this.getCapabilities().getTagOptions().forEach((option) => {
-            if (filters.hasIncludedTag(option)) {
-                genres.genres[option] = '1';
-            } else if (filters.hasExcludedTag(option)) {
-                genres.genres[option] = '2';
-            } else {
-                genres.genres[option] = '0';
-            }
-        });
-        return superagent.get(url)
-            .query(searchMethod)
-            .query(genres)
-            .query(released);
     }
 }
 

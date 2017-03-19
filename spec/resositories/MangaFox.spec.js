@@ -4,6 +4,7 @@ const Fields = require('../../sdk/Fields');
 const Filters = require('../../sdk/Filters');
 const qs = require('qs');
 const cheerio = require('cheerio');
+const MangaFoxSearch = require('../../repositories/MangaFox/MangaFoxSearch');
 
 describe('MangaFox', () => {
     describe('query formatter', () => {
@@ -69,7 +70,7 @@ describe('MangaFox', () => {
         }
 
         function testSearch(filter, expectedValues) {
-            const request = mangaFox._buildSearch(filter);
+            const request = new MangaFoxSearch()._buildSearch(filter);
             const urlObject = {
                 pathname: request.url,
                 search: qs.stringify(request.qs),
@@ -85,9 +86,6 @@ describe('MangaFox', () => {
                 expect(`${key}: ${parsedUrl.query[key]}`).toEqual(`${key}: ${expectedQuery[key]}`);
             });
         }
-        it('should query with no filter', () => {
-            testSearch(null, null);
-        });
         it('should filter by including tag', () => {
             const tagFilter = mangaFox.getCapabilities().getTagOptions()[0];
             const expectedQuery = {};

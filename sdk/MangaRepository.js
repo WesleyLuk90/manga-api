@@ -2,18 +2,44 @@ const MangaHandle = require('./MangaHandle');
 const ChapterHandle = require('./ChapterHandle');
 const PageHandle = require('./PageHandle');
 const Filters = require('./Filters');
+const assert = require('assert');
+const AbstractSearchOperation = require('./AbstractSearchOperation');
+const SearchOptions = require('./SearchOptions');
+const AbstractCapabilitiesOperation = require('./AbstractCapabilitiesOperation');
 
 /* eslint-disable no-unused-vars */
 class MangaRepository {
-    /**
-     * @returns
-     */
-    getCapabilities() {
-        throw new Error('Not Implemented');
+    constructor() {
+        this.searchOperation = null;
+        this.capabilitiesOperation = null;
     }
 
-    search(filters, options) {
-        throw new Error('Not Implemented');
+    setSearchOperation(searchOperation) {
+        assert(searchOperation instanceof AbstractSearchOperation);
+        this.searchOperation = searchOperation;
+        return this;
+    }
+
+    setCapabilitiesOperation(capabilitiesOperation) {
+        assert(capabilitiesOperation instanceof AbstractCapabilitiesOperation);
+        this.capabilitiesOperation = capabilitiesOperation;
+        return this;
+    }
+
+    getCapabilities() {
+        assert(this.capabilitiesOperation, 'Not Implemented');
+        return this.capabilitiesOperation.getCapabilities();
+    }
+
+    search(filtersOrNull, optionsOrNull) {
+        assert(this.searchOperation, 'Not Implemented');
+        const filters = filtersOrNull || new Filters();
+        const options = optionsOrNull || new SearchOptions();
+        assert(filters instanceof Filters, 'Expected filters');
+        assert(options instanceof SearchOptions, 'Expected options');
+        const results = this.searchOperation.search(filters, options);
+        assert(results.then, 'Expected search to return a promise');
+        return results;
     }
 
     getName() {
@@ -54,12 +80,6 @@ class MangaRepository {
     _checkPageHandle(pageHandle) {
         if (!(pageHandle instanceof PageHandle)) {
             throw new Error('Requires a PageHandle');
-        }
-    }
-
-    _checkFilters(filters) {
-        if (!(filters instanceof Filters)) {
-            throw new Error('Requires filters');
         }
     }
 }
