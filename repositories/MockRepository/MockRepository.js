@@ -1,27 +1,18 @@
 const MangaRepository = require('../../sdk/MangaRepository');
-const Capabilities = require('../../sdk/Capabilities');
 const Page = require('../../sdk/Page');
 const Chapter = require('../../sdk/Chapter');
-const Manga = require('../../sdk/Manga');
-const Filters = require('../../sdk/Filters');
 const MangaHandle = require('../../sdk/MangaHandle');
-const ChapterHandle = require('../../sdk/ChapterHandle');
 const PageHandle = require('../../sdk/PageHandle');
+const MockSearchOperation = require('./MockSearchOperation');
+const MockCapabilitiesOperation = require('./MockCapabilitiesOperation');
+const MockGetMangaOperation = require('./MockGetMangaOperation');
 
 class MockRepository extends MangaRepository {
-    getCapabilities() {
-        return new Capabilities();
-    }
-
-    search(filters, options) {
-        filters = filters || new Filters();
-        this._checkFilters(filters);
-        return Promise.resolve([MangaHandle.fromUrl('mock://manga')]);
-    }
-
-    getManga(mangaHandle) {
-        this._checkMangaHandle(mangaHandle);
-        return Promise.resolve(new Manga(mangaHandle).setChapters([ChapterHandle.fromUrl('mock://chapter')]));
+    constructor() {
+        super();
+        this.setSearchOperation(new MockSearchOperation());
+        this.setCapabilitiesOperation(new MockCapabilitiesOperation());
+        this.setGetMangaOperation(new MockGetMangaOperation());
     }
 
     getChapter(chapterHandle) {

@@ -7,6 +7,6 @@ module.exports = function setupRepositoryTest(repository) {
         expect(() => repository.getManga({})).toThrowError(/Requires a MangaHandle/);
         expect(() => repository.getChapter({})).toThrowError(/Requires a ChapterHandle/);
         expect(() => repository.getPage({})).toThrowError(/Requires a PageHandle/);
-        expect(() => repository.search({})).toThrowError(/Requires filters/);
+        expect(() => repository.search({})).toThrowError(/Requires filter/);
     });
 };

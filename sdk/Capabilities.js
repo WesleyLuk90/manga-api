@@ -84,7 +84,7 @@ class Capabilities {
 
     validateFilters(filters) {
         if (!(filters instanceof Filters)) {
-            throw new Error('Expected filters to be an instance of Filters');
+            throw new Error('Requires filter to be an instance of Filters');
         }
         const included = filters.getIncludedTags();
         const excluded = filters.getExcludedTags();
