@@ -7,6 +7,8 @@ const AbstractSearchOperation = require('./AbstractSearchOperation');
 const SearchOptions = require('./SearchOptions');
 const AbstractCapabilitiesOperation = require('./AbstractCapabilitiesOperation');
 const AbstractGetMangaOperation = require('./AbstractGetMangaOperation');
+const AbstractGetPageOperation = require('./AbstractGetPageOperation');
+const AbstractGetChapterOperation = require('./AbstractGetChapterOperation');
 
 /* eslint-disable no-unused-vars */
 class MangaRepository {
@@ -14,6 +16,8 @@ class MangaRepository {
         this.searchOperation = null;
         this.capabilitiesOperation = null;
         this.getMangaOperation = null;
+        this.getChapterOperation = null;
+        this.getPageOperation = null;
     }
 
     setSearchOperation(searchOperation) {
@@ -31,6 +35,18 @@ class MangaRepository {
     setGetMangaOperation(operation) {
         assert(operation instanceof AbstractGetMangaOperation);
         this.getMangaOperation = operation;
+        return this;
+    }
+
+    setGetChapterOperation(operation) {
+        assert(operation instanceof AbstractGetChapterOperation);
+        this.getChapterOperation = operation;
+        return this;
+    }
+
+    setGetPageOperation(operation) {
+        assert(operation instanceof AbstractGetPageOperation);
+        this.getPageOperation = operation;
         return this;
     }
 
@@ -63,11 +79,19 @@ class MangaRepository {
     }
 
     getChapter(chapterHandle) {
-        throw new Error('Not Implemented');
+        assert(this.getChapterOperation, 'Not Implemented');
+        assert(chapterHandle instanceof ChapterHandle, 'Requires a ChapterHandle');
+        const chapter = this.getChapterOperation.getChapter(chapterHandle);
+        assert(chapter.then, 'Expected operation to return a promise');
+        return chapter;
     }
 
     getPage(pageHandle) {
-        throw new Error('Not Implemented');
+        assert(this.getPageOperation, 'Not Implemented');
+        assert(pageHandle instanceof PageHandle, 'Requires a PageHandle');
+        const page = this.getPageOperation.getPage(pageHandle);
+        assert(page.then, 'Expected operation to return a promise');
+        return page;
     }
 
     isForHandle(handle) {
@@ -76,23 +100,6 @@ class MangaRepository {
 
     listLatest() {
         throw new Error('Not Implemented');
-    }
-
-    _checkMangaHandle(mangaHandle) {
-        if (!(mangaHandle instanceof MangaHandle)) {
-            throw new Error(`Requires a MangaHandle but got ${mangaHandle}`);
-        }
-    }
-
-    _checkChapterHandle(chapterHandle) {
-        if (!(chapterHandle instanceof ChapterHandle)) {
-            throw new Error('Requires a ChapterHandle');
-        }
-    }
-    _checkPageHandle(pageHandle) {
-        if (!(pageHandle instanceof PageHandle)) {
-            throw new Error('Requires a PageHandle');
-        }
     }
 }
 

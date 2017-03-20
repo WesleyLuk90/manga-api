@@ -5,6 +5,7 @@ const Filters = require('../../sdk/Filters');
 const qs = require('qs');
 const cheerio = require('cheerio');
 const MangaFoxSearch = require('../../repositories/MangaFox/MangaFoxSearch');
+const MangaFoxGetChapter = require('../../repositories/MangaFox/MangaFoxGetChapter');
 
 describe('MangaFox', () => {
     describe('query formatter', () => {
@@ -118,7 +119,7 @@ describe('MangaFox', () => {
         });
     });
     it('should generate page urls', () => {
-        const mangaFox = new MangaFox();
+        const mangaFox = new MangaFoxGetChapter();
 
         const expected = 'http://mangafox.me/manga/white_epic/c060/5.html';
 
@@ -177,7 +178,7 @@ describe('MangaFox', () => {
     });
 
     it('should parse the chapter number', () => {
-        const mangaFox = new MangaFox();
+        const mangaFox = new MangaFoxGetChapter();
         const element = cheerio.load('<div id="series"><h1>Seshiji o Pin! to - Shikakou Kyougi Dance-bu e Youkoso 47</h1></div>');
         expect(mangaFox._getChapterNumber(element)).toBe('47');
     });
