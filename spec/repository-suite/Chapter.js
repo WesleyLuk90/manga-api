@@ -4,6 +4,10 @@ const assertHandlesArray = require('./util').assertHandlesArray;
 const ChapterHandle = require('../../sdk/ChapterHandle');
 
 module.exports = function setupChapterTests(repository, chapter) {
+    if (!chapter) {
+        console.warn(`No chapter test data for ${repository.getName()}`);
+        return;
+    }
     it('should get chapter data', (done) => {
         Rx.Observable.from(chapter)
             .flatMapWithMaxConcurrent(1, chapterTest => Rx.Observable.defer(() => {

@@ -99,7 +99,7 @@ class MangaRepository {
     }
 
     listLatest() {
-        throw new Error('Not Implemented');
+        return this.search();
     }
 }
 

@@ -3,6 +3,10 @@ const assertDataMatches = require('./util').assertDataMatches;
 const PageHandle = require('../../sdk/PageHandle');
 
 module.exports = function setupPageTests(repository, page) {
+    if (!page) {
+        console.warn(`No page test data for ${repository.getName()}`);
+        return;
+    }
     it('should get page data', (done) => {
         Rx.Observable.from(page)
             .flatMapWithMaxConcurrent(1, pageData => Rx.Observable.defer(() => {

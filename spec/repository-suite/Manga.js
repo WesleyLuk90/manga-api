@@ -4,6 +4,10 @@ const assertDataMatches = require('./util').assertDataMatches;
 const assertHandlesArray = require('./util').assertHandlesArray;
 
 module.exports = function setupMangaTests(repository, manga) {
+    if (!manga) {
+        console.warn(`No manga test data for ${repository.getName()}`);
+        return;
+    }
     it('should get manga data', (done) => {
         Rx.Observable.from(manga)
             .flatMapWithMaxConcurrent(1, mangaTest => Rx.Observable.defer(() => {
