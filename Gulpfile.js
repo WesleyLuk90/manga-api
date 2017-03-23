@@ -14,7 +14,7 @@ const repoSpecs = 'spec/Repositories.spec.js';
 const nonRepoSpecs = [allSpecs, `!${repoSpecs}`];
 const watchFiles = ['sdk/**/*.js', 'repositories/**/*.js', 'spec/**/*.spec.js', 'spec/repository-data/*.data.js'];
 
-function catchError(e) {
+function catchError() {
     this.emit('end');
 }
 
