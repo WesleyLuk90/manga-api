@@ -9,6 +9,8 @@ class Manga {
         this.name = null;
         this.altNames = null;
         this.chapters = null;
+        this.type = null;
+        this.tags = [];
     }
 
     getMangaHandle() {
@@ -46,9 +48,11 @@ Utils.defineStringGetterSetter(Manga, 'name');
 Utils.defineStringGetterSetter(Manga, 'releaseYear');
 Utils.defineStringGetterSetter(Manga, 'summary');
 Utils.defineStringGetterSetter(Manga, 'status');
+Utils.defineStringGetterSetter(Manga, 'type');
 Utils.defineArrayGetterSetter(Manga, 'altNames');
 Utils.defineArrayGetterSetter(Manga, 'authors');
 Utils.defineArrayGetterSetter(Manga, 'artists');
 Utils.defineArrayGetterSetter(Manga, 'genres');
+Utils.defineArrayGetterSetter(Manga, 'tags');
 
 module.exports = Manga;
