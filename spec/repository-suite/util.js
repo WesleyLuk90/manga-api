@@ -14,6 +14,16 @@ exports.assertDataMatches = function assertDataMatches(actual, expected, exclude
 
 exports.assertHandlesArray = function assertHandlesArray(actual, expected) {
     expect(Array.isArray(actual));
-    expect(actual.map(c => c.getUrl()))
-        .toEqual(expected);
+    if (Array.isArray(expected)) {
+        expect(actual.map(c => c.getUrl()))
+            .toEqual(expected);
+    } else if (typeof expected === 'object') {
+        Object.keys(expected)
+            .forEach((index) => {
+                expect(index).toMatch(/[0-9]+/);
+                expect(actual[parseInt(index, 10)].getUrl()).toBe(expected[index]);
+            });
+    } else {
+        throw new Error(`Expected ${expected} to be an object or array`);
+    }
 };
