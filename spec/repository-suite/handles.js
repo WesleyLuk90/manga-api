@@ -59,7 +59,7 @@ module.exports = function setupHandleTest(repository) {
                                 expect(typeof p.getUrl()).toBe('string'));
                     }
 
-                    return repository.getPage(chapter.getPage(0));
+                    return chapter.getPage(0);
                 });
         }
 
