@@ -7,6 +7,10 @@ class ToolKit {
         const originalEnd = Request.prototype.end;
         Request.prototype.end = function newEnd(cb) {
             return originalEnd.call(this, (err, response) => {
+                if (err) {
+                    cb(err, response);
+                    return;
+                }
                 const responseWithDocument = response;
                 try {
                     responseWithDocument.document = cheerio.load(responseWithDocument.text);
