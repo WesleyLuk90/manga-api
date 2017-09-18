@@ -1,28 +1,28 @@
 {
-  "devDependencies": {
-    "eslint": "^3.11.0",
-    "eslint-config-airbnb-base": "^10.0.1",
-    "eslint-plugin-import": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-jasmine": "^2.4.2",
-    "jasmine": "^2.5.2",
-    "qs": "^6.3.0",
-    "rx": "^4.1.0",
-    "yeoman-generator": "^1.1.1"
-  },
-  "scripts": {
-    "test": "jasmine"
-  },
-  "name": "manga-api",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/WesleyLuk90/manga-api.git",
-  "author": "Wesley Luk <wesleyluk@wesleyluk.com>",
-  "license": "MIT",
-  "dependencies": {
-    "cheerio": "^0.22.0",
-    "lodash": "^4.17.2",
-    "q": "^1.5.0",
-    "superagent": "^3.0.0"
-  }
+    "devDependencies": {
+        "bluebird": "^3.5.0",
+        "eslint": "^3.11.0",
+        "eslint-config-airbnb-base": "^10.0.1",
+        "eslint-plugin-import": "^2.2.0",
+        "gulp": "^3.9.1",
+        "gulp-jasmine": "^2.4.2",
+        "jasmine": "^2.8.0",
+        "qs": "^6.3.0",
+        "yeoman-generator": "^1.1.1"
+    },
+    "scripts": {
+        "test": "jasmine",
+        "lint": "eslint src spec repositories"
+    },
+    "name": "manga-api",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/WesleyLuk90/manga-api.git",
+    "author": "Wesley Luk <wesleyluk@wesleyluk.com>",
+    "license": "MIT",
+    "dependencies": {
+        "cheerio": "^0.22.0",
+        "lodash": "^4.17.2",
+        "superagent": "^3.0.0"
+    }
 }

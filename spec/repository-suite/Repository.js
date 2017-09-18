@@ -3,7 +3,7 @@ module.exports = function setupRepositoryTest(repository) {
         expect(typeof repository.getName()).toBe('string');
     });
 
-    it('should throw errors for invalid paramters', () => {
+    it('should throw errors for invalid parameters', () => {
         expect(() => repository.getManga({})).toThrowError(/Requires a MangaHandle/);
         expect(() => repository.getChapter({})).toThrowError(/Requires a ChapterHandle/);
         expect(() => repository.getPage({})).toThrowError(/Requires a PageHandle/);
