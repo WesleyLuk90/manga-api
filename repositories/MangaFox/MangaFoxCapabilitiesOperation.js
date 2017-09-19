@@ -46,4 +46,8 @@ module.exports = class MangaFoxCapabilitiesOperation extends AbstractCapabilitie
             .setFilterByIncludingTags(true)
             .setFilterByExcludingTags(true);
     }
+
+    supportsSearching() {
+        return true;
+    }
 };

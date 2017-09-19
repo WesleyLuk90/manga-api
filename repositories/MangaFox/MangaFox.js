@@ -9,11 +9,11 @@ class MangaFox extends MangaRepository {
 
     constructor() {
         super();
-        this.setSearchOperation(new MangaFoxSearch());
-        this.setCapabilitiesOperation(new MangaFoxCapabilitiesOperation());
-        this.setGetMangaOperation(new MangaFoxGetManga());
-        this.setGetChapterOperation(new MangaFoxGetChapter());
-        this.setGetPageOperation(new MangaFoxGetPage());
+        this.addOperation(MangaFoxSearch);
+        this.addOperation(MangaFoxCapabilitiesOperation);
+        this.addOperation(MangaFoxGetManga);
+        this.addOperation(MangaFoxGetChapter);
+        this.addOperation(MangaFoxGetPage);
     }
 
     listLatest() {

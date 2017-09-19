@@ -13,55 +13,35 @@ const AbstractGetChapterOperation = require('./AbstractGetChapterOperation');
 /* eslint-disable no-unused-vars */
 class MangaRepository {
     constructor() {
-        this.searchOperation = null;
-        this.capabilitiesOperation = null;
-        this.getMangaOperation = null;
-        this.getChapterOperation = null;
-        this.getPageOperation = null;
+        this.operations = [];
     }
 
-    setSearchOperation(searchOperation) {
-        assert(searchOperation instanceof AbstractSearchOperation);
-        this.searchOperation = searchOperation;
-        return this;
+    addOperation(operation) {
+        assert.equal(typeof operation, 'function', `Expected an operation but got ${operation}`);
+        this.operations.push(operation);
     }
 
-    setCapabilitiesOperation(capabilitiesOperation) {
-        assert(capabilitiesOperation instanceof AbstractCapabilitiesOperation);
-        this.capabilitiesOperation = capabilitiesOperation;
-        return this;
+    getOperation(klass) {
+        return this.operations.filter(o => o.prototype instanceof klass)[0];
     }
 
-    setGetMangaOperation(operation) {
-        assert(operation instanceof AbstractGetMangaOperation);
-        this.getMangaOperation = operation;
-        return this;
-    }
-
-    setGetChapterOperation(operation) {
-        assert(operation instanceof AbstractGetChapterOperation);
-        this.getChapterOperation = operation;
-        return this;
-    }
-
-    setGetPageOperation(operation) {
-        assert(operation instanceof AbstractGetPageOperation);
-        this.getPageOperation = operation;
-        return this;
+    get(klass) {
+        const Operation = this.getOperation(klass);
+        assert(Operation, 'Not Implemented');
+        return new Operation();
     }
 
     getCapabilities() {
-        assert(this.capabilitiesOperation, 'Not Implemented');
-        return this.capabilitiesOperation.getCapabilities();
+        return this.get(AbstractCapabilitiesOperation).getCapabilities();
     }
 
     search(filtersOrNull, optionsOrNull) {
-        assert(this.searchOperation, 'Not Implemented');
+        const operation = this.get(AbstractSearchOperation);
         const filters = filtersOrNull || new Filters();
         const options = optionsOrNull || new SearchOptions();
         assert(filters instanceof Filters, 'Requires filter');
         assert(options instanceof SearchOptions, 'Expected options');
-        const results = this.searchOperation.search(filters, options);
+        const results = operation.search(filters, options);
         assert(results.then, 'Expected search to return a promise');
         return results;
     }
@@ -71,25 +51,25 @@ class MangaRepository {
     }
 
     getManga(mangaHandle) {
-        assert(this.getMangaOperation, 'Not Implemented');
+        const operation = this.get(AbstractGetMangaOperation);
         assert(mangaHandle instanceof MangaHandle, 'Requires a MangaHandle');
-        const manga = this.getMangaOperation.getManga(mangaHandle);
+        const manga = operation.getManga(mangaHandle);
         assert(manga.then, 'Expected operation to return a promise');
         return manga;
     }
 
     getChapter(chapterHandle) {
-        assert(this.getChapterOperation, 'Not Implemented');
+        const operation = this.get(AbstractGetChapterOperation);
         assert(chapterHandle instanceof ChapterHandle, 'Requires a ChapterHandle');
-        const chapter = this.getChapterOperation.getChapter(chapterHandle);
+        const chapter = operation.getChapter(chapterHandle);
         assert(chapter.then, 'Expected operation to return a promise');
         return chapter;
     }
 
     getPage(pageHandle) {
-        assert(this.getPageOperation, 'Not Implemented');
+        const operation = this.get(AbstractGetPageOperation);
         assert(pageHandle instanceof PageHandle, 'Requires a PageHandle');
-        const page = this.getPageOperation.getPage(pageHandle);
+        const page = operation.getPage(pageHandle);
         assert(page.then, 'Expected operation to return a promise');
         return page;
     }

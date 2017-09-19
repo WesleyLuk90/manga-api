@@ -18,15 +18,34 @@ describe('MangaRepository', () => {
         expect(() => repo.listLatest()).toThrowError(/Not Implemented/);
     });
 
+    describe('operations', () => {
+        it('should add operations', () => {
+            class AbstractOperation {
+
+            }
+            class Impl extends AbstractOperation {
+
+            }
+
+            const repo = new MangaRepository();
+            repo.addOperation(Impl);
+            expect(repo.getOperation(AbstractOperation)).toBe(Impl);
+            expect(repo.get(AbstractOperation)).toEqual(jasmine.any(Impl));
+        });
+
+        it('should ensure operations are valid', () => {
+            expect(() => new MangaRepository().addOperation({})).toThrowError(/Expected an operation but got \[object Object\]/)
+        });
+    });
+
     describe('search', () => {
         let repo;
-        let searchOperation;
+        class Operation extends AbstractSearchOperation {}
 
         beforeEach(() => {
             repo = new MangaRepository();
-            searchOperation = new AbstractSearchOperation();
-            spyOn(searchOperation, 'search').and.returnValue(new Promise(() => {}));
-            repo.setSearchOperation(searchOperation);
+            spyOn(Operation.prototype, 'search').and.returnValue(new Promise(() => {}));
+            repo.addOperation(Operation);
         });
 
         it('should validate search arguments', () => {
@@ -40,34 +59,35 @@ describe('MangaRepository', () => {
 
         it('should use search operation', () => {
             repo.search();
-            expect(searchOperation.search).toHaveBeenCalled();
+            expect(Operation.prototype.search).toHaveBeenCalled();
         });
     });
 
     describe('capabilities', () => {
         let repo;
-        let operation;
+
+        class Operation extends AbstractCapabilitiesOperation {}
+
         beforeEach(() => {
             repo = new MangaRepository();
-            operation = new AbstractCapabilitiesOperation();
-            spyOn(operation, 'getCapabilities');
-            repo.setCapabilitiesOperation(operation);
+            spyOn(Operation.prototype, 'getCapabilities');
+            repo.addOperation(Operation);
         });
         it('should implement operation', () => {
             repo.getCapabilities();
-            expect(operation.getCapabilities).toHaveBeenCalled();
+            expect(Operation.prototype.getCapabilities).toHaveBeenCalled();
         });
     });
 
     describe('get manga', () => {
         let repo;
-        let operation;
+
+        class Operation extends AbstractGetMangaOperation {}
 
         beforeEach(() => {
             repo = new MangaRepository();
-            operation = new AbstractGetMangaOperation();
-            repo.setGetMangaOperation(operation);
-            spyOn(operation, 'getManga');
+            repo.addOperation(Operation);
+            spyOn(Operation.prototype, 'getManga');
         });
 
         it('should check arguments', () => {
@@ -75,13 +95,16 @@ describe('MangaRepository', () => {
         });
 
         it('should check return value', () => {
-            operation.getManga.and.returnValue({});
+            Operation.prototype.getManga.and.returnValue({});
             expect(() => repo.getManga(new MangaHandle())).toThrowError(/Expected operation to return a promise/);
         });
-        it('should check return value', () => {
-            operation.getManga.and.returnValue(new Promise(() => {}));
-            repo.getManga(new MangaHandle());
-            expect(operation.getManga).toHaveBeenCalled();
+
+        it('return the correct value', () => {
+            Operation.prototype.getManga.and.returnValue(Promise.resolve({}));
+            return repo.getManga(new MangaHandle())
+                .then(() => {
+                    expect(Operation.prototype.getManga).toHaveBeenCalled();
+                });
         });
     });
 });

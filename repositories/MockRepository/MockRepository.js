@@ -9,11 +9,11 @@ const MockGetPageOperation = require('./MockGetPageOperation');
 class MockRepository extends MangaRepository {
     constructor() {
         super();
-        this.setSearchOperation(new MockSearchOperation());
-        this.setCapabilitiesOperation(new MockCapabilitiesOperation());
-        this.setGetMangaOperation(new MockGetMangaOperation());
-        this.setGetChapterOperation(new MockGetChapterOperation());
-        this.setGetPageOperation(new MockGetPageOperation());
+        this.addOperation(MockSearchOperation);
+        this.addOperation(MockCapabilitiesOperation);
+        this.addOperation(MockGetMangaOperation);
+        this.addOperation(MockGetChapterOperation);
+        this.addOperation(MockGetPageOperation);
     }
 
     isForHandle(handle) {

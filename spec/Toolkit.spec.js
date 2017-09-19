@@ -16,24 +16,23 @@ describe('Toolkit', () => {
         server.close(done);
     });
 
-    it('should handle connection errors', (done) => {
+    it('should handle connection errors', () => {
         new ToolKit().initialize();
-        superagent.get('http://invalid.local')
+        return superagent.get('http://invalid.local')
+            .timeout({
+                deadline: 1,
+            })
             .then(fail)
             .catch((e) => {
-                expect(e.code).toBe('ENOTFOUND');
-            })
-            .catch(fail)
-            .then(done);
+                expect(e.code).toMatch(/ECONNABORTED|ENOTFOUND/);
+            });
     });
 
-    it('should parse the document to the response', (done) => {
+    it('should parse the document to the response', () => {
         new ToolKit().initialize();
-        superagent.get(`http://localhost:${server.address().port}`)
+        return superagent.get(`http://localhost:${server.address().port}`)
             .then((res) => {
                 expect(res.document).toBeTruthy();
-            })
-            .catch(fail)
-            .then(done);
+            });
     });
 });

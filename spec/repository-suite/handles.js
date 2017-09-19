@@ -1,13 +1,14 @@
 const Manga = require('../../sdk/Manga');
 const MangaHandle = require('../../sdk/MangaHandle');
 const ChapterHandle = require('../../sdk/ChapterHandle');
+const AbstractCapabilitiesOperation = require('../../sdk/AbstractCapabilitiesOperation');
 const Chapter = require('../../sdk/Chapter');
 const PageHandle = require('../../sdk/PageHandle');
 const Page = require('../../sdk/Page');
 
 module.exports = function setupHandleTest(repository) {
     describe('search and get manga', () => {
-        const cap = repository.getCapabilities();
+        const cap = repository.get(AbstractCapabilitiesOperation);
 
         function listManga() {
             return repository.search()
