@@ -6,12 +6,12 @@ const RepositoryListFactory = require('../repositories/RepositoryListFactory');
 const fs = require('fs');
 
 const mkdir = function mkdir(dir) {
-    return bluebird.promisify(fs.mkdir)(dir)
-        .catch(() => {});
+    return bluebird.promisify(fs.stat)(dir)
+        .catch(() => bluebird.promisify(fs.mkdir)(dir));
 };
 
 function escape(fragment) {
-    return fragment.replace(/^a-z0-9 _-/gi, '-');
+    return fragment.replace(/[^a-z0-9 _\-'!,]/gi, '-');
 }
 
 const list = RepositoryListFactory.create();

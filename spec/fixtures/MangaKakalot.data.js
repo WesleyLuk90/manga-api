@@ -37,6 +37,13 @@ module.exports = {
             pages: lodash.range(15).map(i => `http://3.p.mpcdn.net/50441/1104811/${i + 1}.jpg`),
         },
     }, {
+        handle: 'http://manganel.com/chapter/black_clover/chapter_13',
+        results: {
+            title: '',
+            chapter: '13',
+            pages: {},
+        },
+    }, {
         handle: 'http://manganel.com/chapter/black_clover/chapter_91',
         results: {
             title: 'Plasma Explosion',
