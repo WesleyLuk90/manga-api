@@ -32,6 +32,8 @@ module.exports = {
     chapter_tests: [{
         handle: 'http://mangakakalot.com/chapter/evil_meal/chapter_1',
         results: {
+            title: 'One Shot',
+            chapter: '1',
             pages: lodash.range(15).map(i => `http://3.p.mpcdn.net/50441/1104811/${i + 1}.jpg`),
         },
     }],

@@ -29,6 +29,16 @@ module.exports = class TextParser {
             .filter(s => s !== '');
     }
 
+    extract(regex) {
+        assert(regex instanceof RegExp);
+
+        const match = this.text.match(regex);
+        if (!match) {
+            return TextParser.fromText('');
+        }
+        return TextParser.fromText(match[1]);
+    }
+
     get() {
         return this.text;
     }

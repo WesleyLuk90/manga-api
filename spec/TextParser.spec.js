@@ -18,4 +18,9 @@ describe('TextParser', () => {
     it('should split a string', () => {
         expect(TextParser.fromText('a,b; c, d\n,\ne,').split(',', ';')).toEqual(['a', 'b', 'c', 'd', 'e']);
     });
+
+    it('should extract text', () => {
+        expect(TextParser.fromText('something 10 : interesting').extract(/.*?(\d+) :/).get()).toEqual(10);
+        expect(TextParser.fromText('something 10 : interesting').extract(/invalid match (1)/).get()).toEqual(10);
+    });
 });
