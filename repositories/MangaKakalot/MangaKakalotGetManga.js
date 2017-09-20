@@ -1,4 +1,5 @@
 const superagent = require('superagent');
+const TextParser = require('../TextParser');
 const ChapterHandle = require('../../sdk/ChapterHandle');
 const Manga = require('../../sdk/Manga');
 const HtmlToolkit = require('../HtmlToolkit');
@@ -14,10 +15,14 @@ module.exports = class MangaFoxGetManga extends AbstractGetMangaOperation {
                     .map(link => $(link).attr('href'))
                     .map(link => ChapterHandle.fromUrl(link))
                     .reverse();
+
                 return new Manga(mangaHandle)
                     .setChapters(chapters)
-                    .setSummary(HtmlToolkit.text($('#noidungm')))
-                    .setStatus(HtmlToolkit.text($('.manga-info-text li')[2]).match(/Status : (.*)/)[1])
+                    .setAltNames([TextParser.create($('.story-alternative')).trimPrefix(/Alternative :/).get()])
+                    .setSummary(TextParser.create($('#noidungm')).trimPrefix(/.*? summary:/).get())
+                    .setAuthors(TextParser.create($('.manga-info-text li').eq(1)).trimPrefix('Author(s) :').split(','))
+                    .setGenres(TextParser.create($('.manga-info-text li').eq(6)).trimPrefix('Genres :').split(','))
+                    .setStatus(TextParser.create($('.manga-info-text li').eq(2)).trimPrefix('Status :').get())
                     .setPreviewImageUrl($('.manga-info-pic img').attr('src'))
                     .setName(HtmlToolkit.text($('.manga-info-text h1')));
             });

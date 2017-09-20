@@ -3,9 +3,9 @@ const assert = require('assert');
 const superagent = require('superagent');
 const url = require('url');
 
-class HtmlToolkit {
+module.exports = class HtmlToolkit {
     static text(e) {
-        return $(e).text().trim();
+        return (e.text ? e : $.load(e)).text().trim();
     }
 
     static textArray(es) {
@@ -24,6 +24,4 @@ class HtmlToolkit {
         Object.assign(urlObject.query, queryString);
         return url.format(urlObject);
     }
-}
-
-module.exports = HtmlToolkit;
+};
