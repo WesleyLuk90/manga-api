@@ -36,6 +36,13 @@ module.exports = {
             chapter: '1',
             pages: lodash.range(15).map(i => `http://3.p.mpcdn.net/50441/1104811/${i + 1}.jpg`),
         },
+    }, {
+        handle: 'http://manganel.com/chapter/black_clover/chapter_91',
+        results: {
+            title: 'Plasma Explosion',
+            chapter: '91',
+            pages: { 0: 'http://2.bp.blogspot.com/-jSf0ABuqNlM/WFzgQXHJe2I/AAAAAAF2bB4/rrJ0rmk99cw/w1900/MR-31284-845759-1.jpg' },
+        },
     }],
     page_tests: [{
         handle: 'http://3.p.mpcdn.net/50441/1104811/15.jpg',

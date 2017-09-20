@@ -14,8 +14,8 @@ module.exports = class MangaFoxGetChapter extends AbstractGetChapterOperation {
                     .map(o => o.attr('src'))
                     .map(u => PageHandle.fromUrl(u));
                 return new Chapter(chapterHandle)
-                    .setTitle(TextParser.create($('.info-top-chapter h2')).extract(/.* chapter \d+ : (.*)/).get())
-                    .setChapter(TextParser.create($('.info-top-chapter h2')).extract(/.* chapter (\d+) :/).get())
+                    .setTitle(TextParser.create($('h2').eq(0)).extract(/.* chapter \d+ : (.*)/).get())
+                    .setChapter(TextParser.create($('h2').eq(0)).extract(/.* chapter (\d+) :/).get())
                     .setPages(pages);
             });
     }

@@ -40,6 +40,19 @@ class Chapter {
         }
         return this.pages;
     }
+
+    generateDescription() {
+        if (!this.title) {
+            if (!this.chapter) {
+                return this.chapterHandle.url;
+            }
+            return this.chapter;
+        }
+        if (!this.chapter) {
+            return this.title;
+        }
+        return `${this.chapter} - ${this.title}`;
+    }
 }
 
 Utils.defineStringGetterSetter(Chapter, 'chapter');

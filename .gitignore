@@ -3,6 +3,8 @@ logs
 *.log
 npm-debug.log*
 
+scripts/download/
+
 # Runtime data
 pids
 *.pid

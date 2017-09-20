@@ -37,4 +37,12 @@ describe('Chapter', () => {
     it('should require constructor parameters', () => {
         expect(() => new Chapter()).toThrowError(/A ChapterHandle is required/);
     });
+
+    it('should generate a description', () => {
+        const someHandle = ChapterHandle.fromUrl('abc');
+        expect(new Chapter(someHandle).generateDescription()).toBe('abc');
+        expect(new Chapter(someHandle).setChapter('1').generateDescription()).toBe('1');
+        expect(new Chapter(someHandle).setTitle('a title').generateDescription()).toBe('a title');
+        expect(new Chapter(someHandle).setChapter('1').setTitle('a title').generateDescription()).toBe('1 - a title');
+    });
 });
