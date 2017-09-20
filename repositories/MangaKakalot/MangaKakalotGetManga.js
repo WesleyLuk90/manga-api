@@ -15,10 +15,9 @@ module.exports = class MangaFoxGetManga extends AbstractGetMangaOperation {
                     .map(link => $(link).attr('href'))
                     .map(link => ChapterHandle.fromUrl(link))
                     .reverse();
-
                 return new Manga(mangaHandle)
                     .setChapters(chapters)
-                    .setAltNames([TextParser.create($('.story-alternative')).trimPrefix(/Alternative :/).get()])
+                    .setAltNames(TextParser.create($('.story-alternative')).trimPrefix(/Alternative :/).split(';'))
                     .setSummary(TextParser.create($('#noidungm')).trimPrefix(/.*? summary:/).get())
                     .setAuthors(TextParser.create($('.manga-info-text li').eq(1)).trimPrefix('Author(s) :').split(','))
                     .setGenres(TextParser.create($('.manga-info-text li').eq(6)).trimPrefix('Genres :').split(','))

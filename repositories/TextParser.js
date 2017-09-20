@@ -19,8 +19,12 @@ module.exports = class TextParser {
         return new TextParser(this.text.replace(prefix, ''));
     }
 
-    split(delimiter) {
-        return this.text.split(delimiter)
+    split(...delimiter) {
+        let list = [this.text];
+        delimiter.forEach((d) => {
+            list = [].concat(...list.map(i => i.split(d)));
+        });
+        return list
             .map(s => TextParser.fromText(s).get())
             .filter(s => s !== '');
     }

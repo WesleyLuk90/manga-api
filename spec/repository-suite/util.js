@@ -5,6 +5,8 @@ exports.assertDataMatches = function assertDataMatches(actual, expected, exclude
             if (expected[resultKey] instanceof RegExp) {
                 expect(actual[resultKey])
                     .toMatch(expected[resultKey]);
+            } else if (expected[resultKey] instanceof Function) {
+                expected[resultKey](actual[resultKey]);
             } else {
                 expect(actual[resultKey])
                     .toEqual(expected[resultKey]);

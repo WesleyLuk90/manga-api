@@ -15,6 +15,19 @@ module.exports = {
                 'http://mangakakalot.com/chapter/evil_meal/chapter_1',
             ],
         },
+    }, {
+        handle: 'http://manganel.com/manga/black_clover',
+        results: {
+            name: 'Black Clover',
+            altNames: [],
+            authors: ['Tabata Yuuki'],
+            status: 'Ongoing',
+            genres: ['Action', 'Adult', 'Comedy', 'Fantasy', 'Sci fi', 'Shounen', 'Supernatural'],
+            summary: () => {},
+            chapters: {
+                96: 'http://manganel.com/chapter/black_clover/chapter_96',
+            },
+        },
     }],
     chapter_tests: [{
         handle: 'http://mangakakalot.com/chapter/evil_meal/chapter_1',

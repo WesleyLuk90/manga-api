@@ -16,6 +16,6 @@ describe('TextParser', () => {
     });
 
     it('should split a string', () => {
-        expect(TextParser.fromText('a,b, c, d\n,\ne,').split(',')).toEqual(['a', 'b', 'c', 'd', 'e']);
+        expect(TextParser.fromText('a,b; c, d\n,\ne,').split(',', ';')).toEqual(['a', 'b', 'c', 'd', 'e']);
     });
 });
