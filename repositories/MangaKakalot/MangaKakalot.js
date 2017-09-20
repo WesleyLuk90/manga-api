@@ -14,10 +14,6 @@ module.exports = class MangaKakalot extends MangaRepository {
         this.addOperation(MangaKakalotCapabilitiesOperation);
     }
 
-    listLatest() {
-        return this.search();
-    }
-
     isForHandle(handle) {
         return !!handle.url.match(/^http:\/\/mangakakalot\.com\//);
     }

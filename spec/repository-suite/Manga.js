@@ -8,6 +8,7 @@ module.exports = function setupMangaTests(repository, mangas) {
         console.warn(`No manga test data for ${repository.getName()}`);
         return;
     }
+
     it('should get manga data', () => {
         return bluebird.mapSeries(mangas, (manga) => {
             const mangaHandle = MangaHandle.unserialize(manga.handle);

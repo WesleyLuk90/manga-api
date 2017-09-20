@@ -1,13 +1,13 @@
-const AbstractSearchOperation = require('../../sdk/AbstractSearchOperation');
+const AbstractListLatestOperation = require('../../sdk/AbstractListLatestOperation');
 const MangaHandle = require('../../sdk/MangaHandle');
 
-module.exports = function setupSearchTest(repository) {
-    if (!repository.getOperation(AbstractSearchOperation)) {
+module.exports = function setupListLatestTest(repository) {
+    if (!repository.getOperation(AbstractListLatestOperation)) {
         return;
     }
 
-    it('should search', () => {
-        return repository.search()
+    it('should list latest', () => {
+        return repository.listLatest()
             .then((results) => {
                 expect(Array.isArray(results)).toBe(true);
                 expect(results.length > 0).toBe(true);
