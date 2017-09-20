@@ -1,3 +1,5 @@
+const lodash = require('lodash');
+
 module.exports = {
     manga_tests: [{
         handle: 'http://mangakakalot.com/manga/evil_meal/',
@@ -12,6 +14,18 @@ module.exports = {
             chapters: [
                 'http://mangakakalot.com/chapter/evil_meal/chapter_1',
             ],
+        },
+    }],
+    chapter_tests: [{
+        handle: 'http://mangakakalot.com/chapter/evil_meal/chapter_1',
+        results: {
+            pages: lodash.range(15).map(i => `http://3.p.mpcdn.net/50441/1104811/${i + 1}.jpg`),
+        },
+    }],
+    page_tests: [{
+        handle: 'http://3.p.mpcdn.net/50441/1104811/15.jpg',
+        results: {
+            imageUrl: 'http://3.p.mpcdn.net/50441/1104811/15.jpg',
         },
     }],
 };
