@@ -35,7 +35,7 @@ module.exports = {
     page_tests: [{
         handle: 'http://mangafox.me/manga/a_love_for_sweet_things/v01/c001/1.html',
         results: {
-            imageUrl: /http:\/\/[a-z]\.mfcdn\.net\/store\/manga\/446\/01-001\.0\/compressed\/BQlogo\.jpg/,
+            imageUrl: /.jpg$/,
         },
     }],
     capabilities: {
