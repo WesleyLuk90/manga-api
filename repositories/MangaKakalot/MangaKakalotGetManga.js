@@ -1,4 +1,5 @@
 const superagent = require('superagent');
+const UrlNormalizer = require('../UrlNormalizer');
 const TextParser = require('../TextParser');
 const ChapterHandle = require('../../sdk/ChapterHandle');
 const Manga = require('../../sdk/Manga');
@@ -12,7 +13,7 @@ module.exports = class MangaFoxGetManga extends AbstractGetMangaOperation {
                 const $ = res.document;
                 const links = $('.chapter-list .row span:nth-child(1) a');
                 const chapters = Array.from(links)
-                    .map(link => $(link).attr('href'))
+                    .map(link => UrlNormalizer.fromAnchor($(link)).get())
                     .map(link => ChapterHandle.fromUrl(link))
                     .reverse();
                 return new Manga(mangaHandle)

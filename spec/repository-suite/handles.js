@@ -77,13 +77,11 @@ module.exports = function setupHandleTest(repository) {
                 });
         }
 
-        it('should implement manga, chapters and pages', (done) => {
-            listManga()
+        it('should implement manga, chapters and pages', () => {
+            return listManga()
                 .then(mangas => testGetManga(mangas[0]))
                 .then(testGetChapter)
-                .then(testGetPage)
-                .catch(fail)
-                .then(done);
+                .then(testGetPage);
         });
     });
 };

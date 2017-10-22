@@ -1,3 +1,4 @@
+const UrlNormalizer = require('../UrlNormalizer');
 const AbstractSearchOperation = require('../../sdk/AbstractSearchOperation');
 const superagent = require('superagent');
 const MangaHandle = require('../../sdk/MangaHandle');
@@ -11,7 +12,8 @@ module.exports = class MangaFoxSearch extends AbstractSearchOperation {
                 const $ = res.document;
                 const links = $('#mangalist li a.title');
                 return Array.from(links)
-                    .map(link => MangaHandle.fromUrl($(link).attr('href')));
+                    .map(link => UrlNormalizer.fromAnchor($(link)).get())
+                    .map(link => MangaHandle.fromUrl(link));
             });
     }
 

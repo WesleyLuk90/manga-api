@@ -1,4 +1,5 @@
 const superagent = require('superagent');
+const UrlNormalizer = require('../UrlNormalizer');
 const ChapterHandle = require('../../sdk/ChapterHandle');
 const Manga = require('../../sdk/Manga');
 const HtmlToolkit = require('../HtmlToolkit');
@@ -30,9 +31,9 @@ module.exports = class MangaFoxGetManga extends AbstractGetMangaOperation {
     }
 
     _normalizeChapterUrl(url) {
-        if (url.match(/1\.html$/)) {
-            return url;
-        }
-        return `${url}1.html`;
+        return UrlNormalizer
+            .create(url)
+            .ensureSuffix('1.html')
+            .get();
     }
 };
