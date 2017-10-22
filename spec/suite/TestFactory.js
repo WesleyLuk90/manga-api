@@ -21,7 +21,7 @@ module.exports = class TestFactory {
     }
 
     static createDefaultTests(repository) {
-        const fixture = FixtureLoader.loadFixture(repository);
+        const fixture = FixtureLoader.loadDefaultFixture(repository);
         return this.createTests(repository, fixture);
     }
 };

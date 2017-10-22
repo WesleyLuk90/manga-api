@@ -1,16 +1,25 @@
 const path = require('path');
 
 module.exports = class FixtureLoader {
-    static loadFixture(repository) {
-        const testDataPath = path.join(__dirname, `./fixtures/${repository.getName()}.data.js`);
+    static loadDefaultFixture(repository) {
+        return this.loadFixture(this.getFixturePath(repository), true);
+    }
+
+    static loadFixture(dataPath, unchecked) {
         let data = {};
         try {
-            /* eslint-disable */
-            data = require(testDataPath);
-            /* eslint-enable */
+            // eslint-disable-next-line global-require, import/no-dynamic-require
+            data = require(dataPath);
         } catch (e) {
-            console.warn(`No test data found for ${repository.getName()} at ${testDataPath}`);
+            if (unchecked) {
+                throw e;
+            }
+            console.warn(`No test data found at ${dataPath}`);
         }
         return data;
+    }
+
+    static getFixturePath(repository) {
+        return path.join(__dirname, `./fixtures/${repository.getName()}.data.js`);
     }
 };

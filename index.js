@@ -1,3 +1,5 @@
+const TestFactory = require('./spec/suite/TestFactory');
+const FixtureLoader = require('./spec/suite/FixtureLoader');
 const RepositoryListFactory = require('./repositories/RepositoryListFactory');
 const MangaHandle = require('./sdk/MangaHandle');
 const Manga = require('./sdk/Manga');
@@ -18,4 +20,8 @@ module.exports = {
     PageHandle,
     Fields,
     Filters,
+    Testing: {
+        FixtureLoader,
+        TestFactory,
+    },
 };
