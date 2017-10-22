@@ -1,5 +1,5 @@
 const cheerio = require('cheerio');
-const UrlNormalizer = require('../repositories/UrlNormalizer');
+const UrlNormalizer = require('../../repositories/UrlNormalizer');
 
 describe('UrlNormalizer', () => {
     it('should get urls from elements', () => {

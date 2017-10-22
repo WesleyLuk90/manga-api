@@ -1,5 +1,5 @@
-const Chapter = require('../sdk/Chapter');
-const ChapterHandle = require('../sdk/ChapterHandle');
+const Chapter = require('../../sdk/Chapter');
+const ChapterHandle = require('../../sdk/ChapterHandle');
 
 describe('Chapter', () => {
     it('should get and set values', () => {

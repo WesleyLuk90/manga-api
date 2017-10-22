@@ -1,5 +1,5 @@
-const AbstractSearchOperation = require('../../sdk/AbstractSearchOperation');
-const MangaHandle = require('../../sdk/MangaHandle');
+const AbstractSearchOperation = require('../../../sdk/AbstractSearchOperation');
+const MangaHandle = require('../../../sdk/MangaHandle');
 
 module.exports = function setupSearchTest(repository) {
     if (!repository.getOperation(AbstractSearchOperation)) {

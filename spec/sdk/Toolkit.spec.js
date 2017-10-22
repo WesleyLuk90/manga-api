@@ -1,5 +1,5 @@
 const superagent = require('superagent');
-const ToolKit = require('../repositories/ToolKit');
+const ToolKit = require('../../repositories/ToolKit');
 const http = require('http');
 
 describe('Toolkit', () => {

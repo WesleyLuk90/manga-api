@@ -1,10 +1,10 @@
-const MangaRepository = require('../sdk/MangaRepository');
-const Filters = require('../sdk/Filters');
-const SearchOptions = require('../sdk/SearchOptions');
-const AbstractSearchOperation = require('../sdk/AbstractSearchOperation');
-const AbstractCapabilitiesOperation = require('../sdk/AbstractCapabilitiesOperation');
-const AbstractGetMangaOperation = require('../sdk/AbstractGetMangaOperation');
-const MangaHandle = require('../sdk/MangaHandle');
+const MangaRepository = require('../../sdk/MangaRepository');
+const Filters = require('../../sdk/Filters');
+const SearchOptions = require('../../sdk/SearchOptions');
+const AbstractSearchOperation = require('../../sdk/AbstractSearchOperation');
+const AbstractCapabilitiesOperation = require('../../sdk/AbstractCapabilitiesOperation');
+const AbstractGetMangaOperation = require('../../sdk/AbstractGetMangaOperation');
+const MangaHandle = require('../../sdk/MangaHandle');
 
 describe('MangaRepository', () => {
     it('should have abstract methods', () => {
@@ -34,7 +34,7 @@ describe('MangaRepository', () => {
         });
 
         it('should ensure operations are valid', () => {
-            expect(() => new MangaRepository().addOperation({})).toThrowError(/Expected an operation but got \[object Object\]/)
+            expect(() => new MangaRepository().addOperation({})).toThrowError(/Expected an operation but got \[object Object]/);
         });
     });
 

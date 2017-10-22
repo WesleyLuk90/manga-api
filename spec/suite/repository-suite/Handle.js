@@ -1,13 +1,13 @@
-const AbstractGetChapterOperation = require('../../sdk/AbstractGetChapterOperation');
-const AbstractGetPageOperation = require('../../sdk/AbstractGetPageOperation');
-const AbstractGetMangaOperation = require('../../sdk/AbstractGetMangaOperation');
-const AbstractSearchOperation = require('../../sdk/AbstractSearchOperation');
-const Manga = require('../../sdk/Manga');
-const MangaHandle = require('../../sdk/MangaHandle');
-const ChapterHandle = require('../../sdk/ChapterHandle');
-const Chapter = require('../../sdk/Chapter');
-const PageHandle = require('../../sdk/PageHandle');
-const Page = require('../../sdk/Page');
+const AbstractGetChapterOperation = require('../../../sdk/AbstractGetChapterOperation');
+const AbstractGetPageOperation = require('../../../sdk/AbstractGetPageOperation');
+const AbstractGetMangaOperation = require('../../../sdk/AbstractGetMangaOperation');
+const AbstractSearchOperation = require('../../../sdk/AbstractSearchOperation');
+const Manga = require('../../../sdk/Manga');
+const MangaHandle = require('../../../sdk/MangaHandle');
+const ChapterHandle = require('../../../sdk/ChapterHandle');
+const Chapter = require('../../../sdk/Chapter');
+const PageHandle = require('../../../sdk/PageHandle');
+const Page = require('../../../sdk/Page');
 
 module.exports = function setupHandleTest(repository) {
     describe('search and get manga', () => {

@@ -1,8 +1,9 @@
 const gulp = require('gulp');
 const Jasmine = require('jasmine');
 
-const allSpecs = '**/*.spec.js';
-const repoSpecs = 'Repositories.spec.js';
+const sdkSpecs = 'sdk/*.spec.js';
+const repositoriesSpecs = 'repositories/*.spec.js';
+const suiteSpecs = 'suite/*.spec.js';
 
 function setupTest(taskName, files) {
     gulp.task(taskName, (done) => {
@@ -26,7 +27,9 @@ function setupTest(taskName, files) {
     });
 }
 
-setupTest('test', [allSpecs]);
-setupTest('test:unit', [allSpecs, `!${repoSpecs}`]);
+setupTest('test', [sdkSpecs, repositoriesSpecs, suiteSpecs]);
+setupTest('test:unit', [sdkSpecs]);
+setupTest('test:repository', [repositoriesSpecs]);
+setupTest('test:suite', [suiteSpecs]);
 
 gulp.task('default', ['test']);

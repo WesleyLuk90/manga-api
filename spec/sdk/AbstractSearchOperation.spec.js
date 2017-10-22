@@ -1,4 +1,4 @@
-const AbstractSearchOperation = require('../sdk/AbstractSearchOperation');
+const AbstractSearchOperation = require('../../sdk/AbstractSearchOperation');
 
 describe('AbstractSearchOperation', () => {
     it('should have methods', () => {

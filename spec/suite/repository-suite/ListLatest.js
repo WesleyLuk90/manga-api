@@ -1,5 +1,5 @@
-const AbstractListLatestOperation = require('../../sdk/AbstractListLatestOperation');
-const MangaHandle = require('../../sdk/MangaHandle');
+const MangaHandle = require('../../../sdk/MangaHandle');
+const AbstractListLatestOperation = require('../../../sdk/AbstractListLatestOperation');
 
 module.exports = function setupListLatestTest(repository) {
     if (!repository.getOperation(AbstractListLatestOperation)) {

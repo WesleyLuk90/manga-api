@@ -1,4 +1,4 @@
-const Fields = require('../sdk/Fields');
+const Fields = require('../../sdk/Fields');
 
 describe('Fields', () => {
     it('should check for valid fields', () => {

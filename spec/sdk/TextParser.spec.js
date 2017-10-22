@@ -1,5 +1,5 @@
 const cheerio = require('cheerio');
-const TextParser = require('../repositories/TextParser');
+const TextParser = require('../../repositories/TextParser');
 
 describe('TextParser', () => {
     it('should get text from an element', () => {

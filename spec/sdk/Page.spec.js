@@ -1,5 +1,5 @@
-const Page = require('../sdk/Page');
-const PageHandle = require('../sdk/PageHandle');
+const Page = require('../../sdk/Page');
+const PageHandle = require('../../sdk/PageHandle');
 
 describe('Page', () => {
     it('should require a page handle', () => {

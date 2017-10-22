@@ -1,6 +1,6 @@
-const Capabilities = require('../sdk/Capabilities');
-const Fields = require('../sdk/Fields');
-const Filters = require('../sdk/Filters');
+const Capabilities = require('../../sdk/Capabilities');
+const Fields = require('../../sdk/Fields');
+const Filters = require('../../sdk/Filters');
 
 describe('Capabilities', () => {
     it('should create getters and setters with default values', () => {

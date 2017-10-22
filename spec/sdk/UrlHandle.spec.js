@@ -1,4 +1,4 @@
-const UrlHandle = require('../sdk/UrlHandle');
+const UrlHandle = require('../../sdk/UrlHandle');
 
 describe('UrlHandle', () => {
     it('should throw an error if url is missing', () => {
@@ -11,7 +11,7 @@ describe('UrlHandle', () => {
 
     it('should a subclass when using the static constructor', () => {
         class MyUrlSubclass extends UrlHandle {}
-        expect(MyUrlSubclass.fromUrl('someurl')).toBeInstanceOf(MyUrlSubclass);
+        expect(MyUrlSubclass.fromUrl('someUrl')).toBeInstanceOf(MyUrlSubclass);
     });
 
     it('should serialize and unserialize', () => {

@@ -1,5 +1,5 @@
 const cheerio = require('cheerio');
-const HtmlToolkit = require('../repositories/HtmlToolkit');
+const HtmlToolkit = require('../../repositories/HtmlToolkit');
 
 describe('HtmlToolkit', () => {
     it('should get text', () => {

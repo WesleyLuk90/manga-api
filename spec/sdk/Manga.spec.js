@@ -1,5 +1,5 @@
-const Manga = require('../sdk/Manga');
-const MangaHandle = require('../sdk/MangaHandle');
+const Manga = require('../../sdk/Manga');
+const MangaHandle = require('../../sdk/MangaHandle');
 
 describe('Manga', () => {
     it('should have default values', () => {

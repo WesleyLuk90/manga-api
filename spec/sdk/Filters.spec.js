@@ -1,5 +1,5 @@
-const Filters = require('../sdk/Filters');
-const Fields = require('../sdk/Fields');
+const Filters = require('../../sdk/Filters');
+const Fields = require('../../sdk/Fields');
 
 describe('Filters', () => {
     it('should be empty', () => {
