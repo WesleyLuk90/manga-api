@@ -1,4 +1,4 @@
-const AbstractGetChapterOperation = require('../../sdk/AbstractGetChapterOperation');
+const AbstractGetChapterOperation = require('../../sdk/operations/AbstractGetChapterOperation');
 
 module.exports = class <%= repository_name %>GetChapter extends AbstractGetChapterOperation {
     getChapter(chapterHandle) {

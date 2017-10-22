@@ -1,6 +1,6 @@
 const Manga = require('../../sdk/Manga');
 const ChapterHandle = require('../../sdk/ChapterHandle');
-const AbstractGetMangaOperation = require('../../sdk/AbstractGetMangaOperation');
+const AbstractGetMangaOperation = require('../../sdk/operations/AbstractGetMangaOperation');
 
 module.exports = class MockGetMangaOperation extends AbstractGetMangaOperation {
     getManga(mangaHandle) {

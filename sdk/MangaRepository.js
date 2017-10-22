@@ -3,12 +3,12 @@ const ChapterHandle = require('./ChapterHandle');
 const PageHandle = require('./PageHandle');
 const Filters = require('./Filters');
 const assert = require('assert');
-const AbstractSearchOperation = require('./AbstractSearchOperation');
+const AbstractSearchOperation = require('./operations/AbstractSearchOperation');
 const SearchOptions = require('./SearchOptions');
-const AbstractCapabilitiesOperation = require('./AbstractCapabilitiesOperation');
-const AbstractGetMangaOperation = require('./AbstractGetMangaOperation');
-const AbstractGetPageOperation = require('./AbstractGetPageOperation');
-const AbstractGetChapterOperation = require('./AbstractGetChapterOperation');
+const AbstractCapabilitiesOperation = require('./operations/AbstractCapabilitiesOperation');
+const AbstractGetMangaOperation = require('./operations/AbstractGetMangaOperation');
+const AbstractGetPageOperation = require('./operations/AbstractGetPageOperation');
+const AbstractGetChapterOperation = require('./operations/AbstractGetChapterOperation');
 
 /* eslint-disable no-unused-vars */
 class MangaRepository {

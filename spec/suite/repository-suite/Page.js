@@ -1,5 +1,5 @@
 const bluebird = require('bluebird');
-const AbstractGetPageOperation = require('../../../sdk/AbstractGetPageOperation');
+const AbstractGetPageOperation = require('../../../sdk/operations/AbstractGetPageOperation');
 const PageHandle = require('../../../sdk/PageHandle');
 const Assertions = require('../Assertions');
 

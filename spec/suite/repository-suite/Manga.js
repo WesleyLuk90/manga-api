@@ -1,5 +1,5 @@
 const bluebird = require('bluebird');
-const AbstractGetMangaOperation = require('../../../sdk/AbstractGetMangaOperation');
+const AbstractGetMangaOperation = require('../../../sdk/operations/AbstractGetMangaOperation');
 const Assertions = require('../Assertions');
 const MangaHandle = require('../../../sdk/MangaHandle');
 

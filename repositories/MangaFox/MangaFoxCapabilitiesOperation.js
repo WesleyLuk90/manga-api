@@ -1,6 +1,6 @@
 const Capabilities = require('../../sdk/Capabilities');
 const Fields = require('../../sdk/Fields');
-const AbstractCapabilitiesOperation = require('../../sdk/AbstractCapabilitiesOperation');
+const AbstractCapabilitiesOperation = require('../../sdk/operations/AbstractCapabilitiesOperation');
 
 module.exports = class MangaFoxCapabilitiesOperation extends AbstractCapabilitiesOperation {
     getCapabilities() {

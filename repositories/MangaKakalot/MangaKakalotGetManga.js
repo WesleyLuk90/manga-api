@@ -4,7 +4,7 @@ const TextParser = require('../TextParser');
 const ChapterHandle = require('../../sdk/ChapterHandle');
 const Manga = require('../../sdk/Manga');
 const HtmlToolkit = require('../HtmlToolkit');
-const AbstractGetMangaOperation = require('../../sdk/AbstractGetMangaOperation');
+const AbstractGetMangaOperation = require('../../sdk/operations/AbstractGetMangaOperation');
 
 module.exports = class MangaFoxGetManga extends AbstractGetMangaOperation {
     getManga(mangaHandle) {

@@ -1,5 +1,5 @@
 const UrlNormalizer = require('../UrlNormalizer');
-const AbstractSearchOperation = require('../../sdk/AbstractSearchOperation');
+const AbstractSearchOperation = require('../../sdk/operations/AbstractSearchOperation');
 const superagent = require('superagent');
 const MangaHandle = require('../../sdk/MangaHandle');
 const Fields = require('../../sdk/Fields');

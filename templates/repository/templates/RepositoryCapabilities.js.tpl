@@ -1,4 +1,4 @@
-const AbstractCapabilitiesOperation = require('../../sdk/AbstractCapabilitiesOperation');
+const AbstractCapabilitiesOperation = require('../../sdk/operations/AbstractCapabilitiesOperation');
 
 module.exports = class <%= repository_name %>Capabilities extends AbstractCapabilitiesOperation {
     getCapabilities() {

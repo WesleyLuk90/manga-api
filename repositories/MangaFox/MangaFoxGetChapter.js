@@ -1,5 +1,5 @@
 const superagent = require('superagent');
-const AbstractGetChapterOperation = require('../../sdk/AbstractGetChapterOperation');
+const AbstractGetChapterOperation = require('../../sdk/operations/AbstractGetChapterOperation');
 const PageHandle = require('../../sdk/PageHandle');
 const Chapter = require('../../sdk/Chapter');
 const HtmlToolkit = require('../HtmlToolkit');

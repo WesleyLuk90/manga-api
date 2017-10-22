@@ -1,5 +1,5 @@
 const MangaHandle = require('../../sdk/MangaHandle');
-const AbstractSearchOperation = require('../../sdk/AbstractSearchOperation');
+const AbstractSearchOperation = require('../../sdk/operations/AbstractSearchOperation');
 
 module.exports = class MockSearchOperation extends AbstractSearchOperation {
     search() {

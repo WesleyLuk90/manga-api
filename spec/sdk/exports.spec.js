@@ -16,5 +16,13 @@ describe('manga-api', () => {
         const testingExportList = Object.keys(MangaApi.Testing);
         expect(testingExportList).toContain('FixtureLoader');
         expect(testingExportList).toContain('TestFactory');
+
+        const sdkExportList = Object.keys(MangaApi.SDK);
+        expect(sdkExportList).toContain('AbstractCapabilitiesOperation');
+        expect(sdkExportList).toContain('AbstractGetChapterOperation');
+        expect(sdkExportList).toContain('AbstractGetMangaOperation');
+        expect(sdkExportList).toContain('AbstractGetPageOperation');
+        expect(sdkExportList).toContain('AbstractListLatestOperation');
+        expect(sdkExportList).toContain('AbstractSearchOperation');
     });
 });

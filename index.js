@@ -1,3 +1,9 @@
+const AbstractSearchOperation = require('./sdk/operations/AbstractSearchOperation');
+const AbstractListLatestOperation = require('./sdk/operations/AbstractListLatestOperation');
+const AbstractGetPageOperation = require('./sdk/operations/AbstractGetPageOperation');
+const AbstractGetMangaOperation = require('./sdk/operations/AbstractGetMangaOperation');
+const AbstractGetChapterOperation = require('./sdk/operations/AbstractGetChapterOperation');
+const AbstractCapabilitiesOperation = require('./sdk/operations/AbstractCapabilitiesOperation');
 const TestFactory = require('./spec/suite/TestFactory');
 const FixtureLoader = require('./spec/suite/FixtureLoader');
 const RepositoryListFactory = require('./repositories/RepositoryListFactory');
@@ -20,6 +26,14 @@ module.exports = {
     PageHandle,
     Fields,
     Filters,
+    SDK: {
+        AbstractCapabilitiesOperation,
+        AbstractGetChapterOperation,
+        AbstractGetMangaOperation,
+        AbstractGetPageOperation,
+        AbstractListLatestOperation,
+        AbstractSearchOperation,
+    },
     Testing: {
         FixtureLoader,
         TestFactory,

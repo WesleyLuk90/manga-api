@@ -1,4 +1,4 @@
-const AbstractGetChapterOperation = require('../../sdk/AbstractGetChapterOperation');
+const AbstractGetChapterOperation = require('../../sdk/operations/AbstractGetChapterOperation');
 const Chapter = require('../../sdk/Chapter');
 const PageHandle = require('../../sdk/PageHandle');
 

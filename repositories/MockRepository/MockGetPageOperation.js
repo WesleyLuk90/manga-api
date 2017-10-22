@@ -1,4 +1,4 @@
-const AbstractGetPageOperation = require('../../sdk/AbstractGetPageOperation');
+const AbstractGetPageOperation = require('../../sdk/operations/AbstractGetPageOperation');
 const Page = require('../../sdk/Page');
 
 module.exports = class MockGetPageOperation extends AbstractGetPageOperation {

@@ -1,7 +1,7 @@
-const AbstractGetPageOperation = require('../../../sdk/AbstractGetPageOperation');
-const AbstractGetChapterOperation = require('../../../sdk/AbstractGetChapterOperation');
-const AbstractSearchOperation = require('../../../sdk/AbstractSearchOperation');
-const AbstractGetMangaOperation = require('../../../sdk/AbstractGetMangaOperation');
+const AbstractGetPageOperation = require('../../../sdk/operations/AbstractGetPageOperation');
+const AbstractGetChapterOperation = require('../../../sdk/operations/AbstractGetChapterOperation');
+const AbstractSearchOperation = require('../../../sdk/operations/AbstractSearchOperation');
+const AbstractGetMangaOperation = require('../../../sdk/operations/AbstractGetMangaOperation');
 
 module.exports = function setupRepositoryTest(repository) {
     it('should get name', () => {

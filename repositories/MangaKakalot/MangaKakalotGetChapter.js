@@ -1,6 +1,6 @@
 const superagent = require('superagent');
 const TextParser = require('../TextParser');
-const AbstractGetChapterOperation = require('../../sdk/AbstractGetChapterOperation');
+const AbstractGetChapterOperation = require('../../sdk/operations/AbstractGetChapterOperation');
 const PageHandle = require('../../sdk/PageHandle');
 const Chapter = require('../../sdk/Chapter');
 
