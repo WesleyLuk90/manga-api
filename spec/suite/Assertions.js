@@ -36,12 +36,13 @@ module.exports = class Assertions {
     static assertOperationFixture(repository, operation, fixture, dataKey) {
         const implementation = repository.getOperation(operation);
         if (implementation && fixture[dataKey]) {
-            return;
+            return true;
         }
         if (!implementation && !fixture[dataKey]) {
-            return;
+            return false;
         }
         assert(implementation, `Data ${dataKey} provided but operation ${operation.name} not implemented for repository ${repository.getName()}`);
         assert(fixture[dataKey], `Operation ${operation.name} implemented but missing fixture data ${dataKey} ${repository.getName()}`);
+        return false;
     }
 };

@@ -4,7 +4,9 @@ const Assertions = require('../Assertions');
 const ChapterHandle = require('../../../sdk/ChapterHandle');
 
 module.exports = function setupChapterTests(repository, fixture) {
-    Assertions.assertOperationFixture(repository, AbstractGetChapterOperation, fixture, 'chapter_tests');
+    if (!Assertions.assertOperationFixture(repository, AbstractGetChapterOperation, fixture, 'chapter_tests')) {
+        return;
+    }
 
     it('should get chapter data', () => {
         return bluebird.mapSeries(fixture.chapter_tests, (chapter) => {

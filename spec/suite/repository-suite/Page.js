@@ -4,7 +4,9 @@ const PageHandle = require('../../../sdk/PageHandle');
 const Assertions = require('../Assertions');
 
 module.exports = function setupPageTests(repository, fixture) {
-    Assertions.assertOperationFixture(repository, AbstractGetPageOperation, fixture, 'page_tests');
+    if (!Assertions.assertOperationFixture(repository, AbstractGetPageOperation, fixture, 'page_tests')) {
+        return;
+    }
 
     it('should get page data', () => {
         return bluebird.mapSeries(fixture.page_tests, (pageData) => {

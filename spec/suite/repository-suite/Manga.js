@@ -4,7 +4,9 @@ const Assertions = require('../Assertions');
 const MangaHandle = require('../../../sdk/MangaHandle');
 
 module.exports = function setupMangaTests(repository, fixture) {
-    Assertions.assertOperationFixture(repository, AbstractGetMangaOperation, fixture, 'manga_tests');
+    if (!Assertions.assertOperationFixture(repository, AbstractGetMangaOperation, fixture, 'manga_tests')) {
+        return;
+    }
 
     it('should get manga data', () => {
         return bluebird.mapSeries(fixture.manga_tests, (manga) => {
