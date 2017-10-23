@@ -4,6 +4,7 @@ describe('manga-api', () => {
     it('should expose exports', () => {
         const exportList = Object.keys(MangaApi);
         expect(exportList).toContain('RepositoryListFactory');
+        expect(exportList).toContain('RepositoryList');
         expect(exportList).toContain('Manga');
         expect(exportList).toContain('MangaHandle');
         expect(exportList).toContain('Chapter');

@@ -1,3 +1,4 @@
+const RepositoryList = require('./repositories/RepositoryList');
 const TextParser = require('./repositories/TextParser');
 const HtmlToolkit = require('./repositories/HtmlToolkit');
 const AbstractSearchOperation = require('./sdk/operations/AbstractSearchOperation');
@@ -20,6 +21,7 @@ const Filters = require('./sdk/Filters');
 
 module.exports = {
     RepositoryListFactory,
+    RepositoryList,
     Manga,
     MangaHandle,
     Chapter,
