@@ -1,3 +1,5 @@
+const TextParser = require('./repositories/TextParser');
+const HtmlToolkit = require('./repositories/HtmlToolkit');
 const AbstractSearchOperation = require('./sdk/operations/AbstractSearchOperation');
 const AbstractListLatestOperation = require('./sdk/operations/AbstractListLatestOperation');
 const AbstractGetPageOperation = require('./sdk/operations/AbstractGetPageOperation');
@@ -37,5 +39,9 @@ module.exports = {
     Testing: {
         FixtureLoader,
         TestFactory,
+    },
+    Toolkit: {
+        HtmlToolkit,
+        TextParser,
     },
 };
