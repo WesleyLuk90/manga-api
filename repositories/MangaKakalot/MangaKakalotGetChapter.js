@@ -1,4 +1,4 @@
-const superagent = require('superagent');
+const Request = require('../Request');
 const TextParser = require('../TextParser');
 const AbstractGetChapterOperation = require('../../sdk/operations/AbstractGetChapterOperation');
 const PageHandle = require('../../sdk/PageHandle');
@@ -6,7 +6,7 @@ const Chapter = require('../../sdk/Chapter');
 
 module.exports = class MangaFoxGetChapter extends AbstractGetChapterOperation {
     getChapter(chapterHandle) {
-        return superagent.get(chapterHandle.getUrl())
+        return Request.get(chapterHandle.getUrl())
             .then((res) => {
                 const $ = res.document;
                 const pages = Array.from($('.vung-doc img'))

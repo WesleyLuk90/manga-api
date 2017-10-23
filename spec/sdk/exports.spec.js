@@ -29,11 +29,13 @@ describe('manga-api', () => {
         expect(sdkExportList).toContain('AbstractGetPageOperation');
         expect(sdkExportList).toContain('AbstractListLatestOperation');
         expect(sdkExportList).toContain('AbstractSearchOperation');
+        expect(sdkExportList).toContain('MangaRepository');
     });
 
     it('should expose toolkit api', () => {
         const toolkitExportList = Object.keys(MangaApi.Toolkit);
         expect(toolkitExportList).toContain('HtmlToolkit');
         expect(toolkitExportList).toContain('TextParser');
+        expect(toolkitExportList).toContain('Request');
     });
 });

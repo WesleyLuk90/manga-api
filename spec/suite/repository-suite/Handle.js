@@ -24,7 +24,7 @@ module.exports = function setupHandleTest(repository) {
                 .then((results) => {
                     expect(Array.isArray(results)).toBe(true);
                     expect(results.length).not.toBeLessThan(1);
-                    results.forEach(m => expect(m).toBeInstanceOf(MangaHandle));
+                    results.forEach(m => expect(m).toEqual(jasmine.any(MangaHandle)));
                     return results;
                 });
         }
@@ -32,8 +32,8 @@ module.exports = function setupHandleTest(repository) {
         function testGetManga(mangaHandle) {
             return repository.getManga(mangaHandle)
                 .then((manga) => {
-                    expect(manga).toBeInstanceOf(Manga);
-                    expect(manga.getMangaHandle()).toBeInstanceOf(MangaHandle);
+                    expect(manga).toEqual(jasmine.any(Manga));
+                    expect(manga.getMangaHandle()).toEqual(jasmine.any(MangaHandle));
 
                     expect(Array.isArray(manga.getChapters())).toBe(true);
                     expect(manga.getChapters()
@@ -51,14 +51,14 @@ module.exports = function setupHandleTest(repository) {
         function testGetChapter(chapterHandle) {
             return repository.getChapter(chapterHandle)
                 .then((chapter) => {
-                    expect(chapter).toBeInstanceOf(Chapter);
+                    expect(chapter).toEqual(jasmine.any(Chapter));
                     expect(typeof chapter.getTitle()).toBe('string');
                     expect(typeof chapter.getChapter()).toBe('string');
                     expect(typeof chapter.getVolume()).toBe('string');
                     expect(Array.isArray(chapter.getPages())).toBe(true);
 
                     chapter.getPages().forEach((page) => {
-                        expect(page).toBeInstanceOf(PageHandle);
+                        expect(page).toEqual(jasmine.any(PageHandle));
                     });
 
                     chapter.getPages()
@@ -72,7 +72,7 @@ module.exports = function setupHandleTest(repository) {
         function testGetPage(pageHandle) {
             return repository.getPage(pageHandle)
                 .then((page) => {
-                    expect(page).toBeInstanceOf(Page);
+                    expect(page).toEqual(jasmine.any(Page));
                     expect(typeof page.getImageUrl()).toBe('string');
                 });
         }

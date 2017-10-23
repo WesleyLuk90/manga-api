@@ -1,4 +1,4 @@
-const superagent = require('superagent');
+const Request = require('../Request');
 const UrlNormalizer = require('../UrlNormalizer');
 const ChapterHandle = require('../../sdk/ChapterHandle');
 const Manga = require('../../sdk/Manga');
@@ -7,7 +7,7 @@ const AbstractGetMangaOperation = require('../../sdk/operations/AbstractGetManga
 
 module.exports = class MangaFoxGetManga extends AbstractGetMangaOperation {
     getManga(mangaHandle) {
-        return superagent.get(mangaHandle.getUrl())
+        return Request.get(mangaHandle.getUrl())
             .then((res) => {
                 const $ = res.document;
                 const links = $('a.tips');

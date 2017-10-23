@@ -1,6 +1,6 @@
+const Request = require('../Request');
 const UrlNormalizer = require('../UrlNormalizer');
 const AbstractSearchOperation = require('../../sdk/operations/AbstractSearchOperation');
-const superagent = require('superagent');
 const MangaHandle = require('../../sdk/MangaHandle');
 const Fields = require('../../sdk/Fields');
 const MangaFoxCapabilitiesOperation = require('./MangaFoxCapabilitiesOperation');
@@ -50,7 +50,7 @@ module.exports = class MangaFoxSearch extends AbstractSearchOperation {
                 genres.genres[option] = '0';
             }
         });
-        return superagent.get(url)
+        return Request.get(url)
             .query(searchMethod)
             .query(genres)
             .query(released);

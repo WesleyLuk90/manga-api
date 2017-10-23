@@ -1,4 +1,4 @@
-const superagent = require('superagent');
+const Request = require('../Request');
 const UrlNormalizer = require('../UrlNormalizer');
 const TextParser = require('../TextParser');
 const ChapterHandle = require('../../sdk/ChapterHandle');
@@ -8,7 +8,7 @@ const AbstractGetMangaOperation = require('../../sdk/operations/AbstractGetManga
 
 module.exports = class MangaFoxGetManga extends AbstractGetMangaOperation {
     getManga(mangaHandle) {
-        return superagent.get(mangaHandle.getUrl())
+        return Request.get(mangaHandle.getUrl())
             .then((res) => {
                 const $ = res.document;
                 const links = $('.chapter-list .row span:nth-child(1) a');

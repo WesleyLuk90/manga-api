@@ -1,10 +1,10 @@
-const superagent = require('superagent');
+const Request = require('../Request');
 const Page = require('../../sdk/Page');
 const AbstractGetPageOperation = require('../../sdk/operations/AbstractGetPageOperation');
 
 module.exports = class MangaFoxGetPage extends AbstractGetPageOperation {
     getPage(pageHandle) {
-        return superagent.get(pageHandle.getUrl())
+        return Request.get(pageHandle.getUrl())
             .then((res) => {
                 const $ = res.document;
                 return new Page(pageHandle)

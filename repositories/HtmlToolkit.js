@@ -1,7 +1,7 @@
 const $ = require('cheerio');
 const assert = require('assert');
-const superagent = require('superagent');
 const url = require('url');
+const Request = require('./Request');
 
 module.exports = class HtmlToolkit {
     static text(e) {
@@ -14,7 +14,7 @@ module.exports = class HtmlToolkit {
 
     static getDocument(pageUrl) {
         assert(typeof pageUrl === 'string');
-        return superagent.get(pageUrl)
+        return Request.get(pageUrl)
             .then(res => res.document);
     }
 

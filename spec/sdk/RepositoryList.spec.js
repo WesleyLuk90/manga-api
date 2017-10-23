@@ -31,6 +31,6 @@ describe('RepositoryList', () => {
     it('should get the repository for a handle', () => {
         const list = RepositoryListFactory.create();
         expect(list.getRepositoryForHandle(MangaHandle.fromUrl('nothing'))).toBe(null);
-        expect(list.getRepositoryForHandle(MangaHandle.fromUrl('mock://stuff'))).toBeInstanceOf(MockRepository);
+        expect(list.getRepositoryForHandle(MangaHandle.fromUrl('mock://stuff'))).toEqual(jasmine.any(MockRepository));
     });
 });

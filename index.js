@@ -1,3 +1,5 @@
+const Request = require('./repositories/Request');
+const MangaRepository = require('./sdk/MangaRepository');
 const RepositoryList = require('./repositories/RepositoryList');
 const TextParser = require('./repositories/TextParser');
 const HtmlToolkit = require('./repositories/HtmlToolkit');
@@ -37,6 +39,7 @@ module.exports = {
         AbstractGetPageOperation,
         AbstractListLatestOperation,
         AbstractSearchOperation,
+        MangaRepository,
     },
     Testing: {
         FixtureLoader,
@@ -45,5 +48,6 @@ module.exports = {
     Toolkit: {
         HtmlToolkit,
         TextParser,
+        Request,
     },
 };

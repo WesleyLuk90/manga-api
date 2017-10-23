@@ -1,4 +1,4 @@
-const superagent = require('superagent');
+const Request = require('../Request');
 const AbstractGetChapterOperation = require('../../sdk/operations/AbstractGetChapterOperation');
 const PageHandle = require('../../sdk/PageHandle');
 const Chapter = require('../../sdk/Chapter');
@@ -6,7 +6,7 @@ const HtmlToolkit = require('../HtmlToolkit');
 
 module.exports = class MangaFoxGetChapter extends AbstractGetChapterOperation {
     getChapter(chapterHandle) {
-        return superagent.get(chapterHandle.getUrl())
+        return Request.get(chapterHandle.getUrl())
             .then((res) => {
                 const $ = res.document;
                 const select = $('select.m').eq(0);

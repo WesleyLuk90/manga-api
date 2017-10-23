@@ -11,7 +11,7 @@ describe('UrlHandle', () => {
 
     it('should a subclass when using the static constructor', () => {
         class MyUrlSubclass extends UrlHandle {}
-        expect(MyUrlSubclass.fromUrl('someUrl')).toBeInstanceOf(MyUrlSubclass);
+        expect(MyUrlSubclass.fromUrl('someUrl')).toEqual(jasmine.any(MyUrlSubclass));
     });
 
     it('should serialize and unserialize', () => {
@@ -19,7 +19,7 @@ describe('UrlHandle', () => {
         const handle = MyUrlSubclass.fromUrl('a b c');
 
         const unserializedHandle = MyUrlSubclass.unserialize(handle.serialize());
-        expect(unserializedHandle).toBeInstanceOf(MyUrlSubclass);
+        expect(unserializedHandle).toEqual(jasmine.any(MyUrlSubclass));
         expect(unserializedHandle.getUrl()).toBe('a b c');
     });
 });
