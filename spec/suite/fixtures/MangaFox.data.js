@@ -95,4 +95,10 @@ module.exports = {
         searching: true,
         listingLatest: true,
     },
+    list_latest_tests: [
+        {
+            iterationCount: 100,
+            hasChapters: true,
+        },
+    ],
 };

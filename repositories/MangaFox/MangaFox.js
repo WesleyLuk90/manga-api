@@ -1,3 +1,4 @@
+const MangaFoxListLatest = require('./MangaFoxListLatest');
 const MangaRepository = require('../../sdk/MangaRepository');
 const MangaFoxSearch = require('./MangaFoxSearch');
 const MangaFoxCapabilitiesOperation = require('./MangaFoxCapabilitiesOperation');
@@ -14,10 +15,7 @@ class MangaFox extends MangaRepository {
         this.addOperation(MangaFoxGetManga);
         this.addOperation(MangaFoxGetChapter);
         this.addOperation(MangaFoxGetPage);
-    }
-
-    listLatest() {
-        return this.search();
+        this.addOperation(MangaFoxListLatest);
     }
 
     isForHandle(handle) {

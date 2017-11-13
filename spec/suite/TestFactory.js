@@ -13,7 +13,7 @@ module.exports = class TestFactory {
             setupRepositoryTest(repository);
             setupHandleTest(repository);
             setupSearchTest(repository);
-            setupListLatestTest(repository);
+            setupListLatestTest(repository, fixture);
             setupMangaTests(repository, fixture);
             setupChapterTests(repository, fixture);
             setupPageTests(repository, fixture);

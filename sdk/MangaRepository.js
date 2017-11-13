@@ -1,3 +1,4 @@
+const AbstractListLatestOperation = require('./operations/AbstractListLatestOperation');
 const MangaHandle = require('./MangaHandle');
 const ChapterHandle = require('./ChapterHandle');
 const PageHandle = require('./PageHandle');
@@ -79,7 +80,8 @@ class MangaRepository {
     }
 
     listLatest() {
-        return this.search();
+        const operation = this.get(AbstractListLatestOperation);
+        return operation.listLatest();
     }
 }
 

@@ -1,9 +1,11 @@
 const gulp = require('gulp');
 const Jasmine = require('jasmine');
+const minimist = require('minimist');
 
 const sdkSpecs = 'sdk/*.spec.js';
 const repositoriesSpecs = 'repositories/*.spec.js';
 const suiteSpecs = 'suite/*.spec.js';
+const args = minimist(process.argv.slice(2));
 
 function setupTest(taskName, files) {
     gulp.task(taskName, (done) => {
@@ -14,7 +16,16 @@ function setupTest(taskName, files) {
             helpers: [
                 'helpers/**/*.js',
             ],
+            filter: 'abc',
         });
+
+        const env = jasmine.jasmine.getEnv();
+        env.specFilter = (spec) => {
+            if (args.filter) {
+                return spec.getFullName().indexOf(args.filter) > -1;
+            }
+            return true;
+        };
         jasmine.execute();
         jasmine.onComplete((passed) => {
             if (passed) {

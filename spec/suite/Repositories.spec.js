@@ -1,5 +1,8 @@
 const TestFactory = require('./TestFactory');
 const RepositoryListFactory = require('../../repositories/RepositoryListFactory');
+const minimist = require('minimist');
+
+const args = minimist(process.argv.slice(2));
 
 function allRepositories() {
     const list = RepositoryListFactory
@@ -8,11 +11,9 @@ function allRepositories() {
 }
 
 function createTests() {
-    const index = process.argv.indexOf('--repository');
-    const singleRepository = index > -1 ? process.argv[index + 1] : null;
     allRepositories()
         .filter((repo) => {
-            return !singleRepository || repo.getName() === singleRepository;
+            return !args.repository || repo.getName() === args.repository;
         }).forEach((repo) => {
             TestFactory.createDefaultTests(repo);
         });
