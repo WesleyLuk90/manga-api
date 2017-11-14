@@ -1,10 +1,15 @@
 const assert = require('assert');
+const lodash = require('lodash');
 const ChapterHandle = require('./ChapterHandle');
 const MangaHandle = require('./MangaHandle');
 
 module.exports = class MangaEntry {
     static create(mangaHandle) {
         return new MangaEntry(mangaHandle);
+    }
+
+    static equals(a, b) {
+        return lodash.isEqual(a, b);
     }
 
     constructor(mangaHandle) {

@@ -1,3 +1,4 @@
+const assert = require('assert');
 const ChapterHandle = require('../../../sdk/ChapterHandle');
 const MangaHandle = require('../../../sdk/MangaHandle');
 const MangaEntry = require('../../../sdk/MangaEntry');
@@ -27,6 +28,16 @@ module.exports = function setupListLatestTest(repository, data) {
         }
     }
 
+    function checkNoDuplicates(mangaEntries) {
+        mangaEntries.forEach((a, i) => {
+            mangaEntries.forEach((b, j) => {
+                if (i !== j) {
+                    assert.notEqual(a, b);
+                }
+            });
+        });
+    }
+
     describe('list latest', () => {
         data.list_latest_tests.forEach((testCase) => {
             it('should list latest', () => {
@@ -35,8 +46,9 @@ module.exports = function setupListLatestTest(repository, data) {
 
                 let validAsync = false;
                 let remaining = testCase.iterationCount;
-
+                const list = [];
                 const promise = visitor.visit((mangaEntry) => {
+                    list.push(mangaEntry);
                     validateMangaEntry(mangaEntry, testCase);
                     validAsync = true;
                     remaining--;
@@ -46,6 +58,7 @@ module.exports = function setupListLatestTest(repository, data) {
                 return promise
                     .then(() => {
                         expect(remaining).toBe(0);
+                        checkNoDuplicates(list);
                     });
             });
         });

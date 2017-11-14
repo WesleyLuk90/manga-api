@@ -10,6 +10,13 @@ class UrlHandle {
         return this.fromUrl(data);
     }
 
+    static equals(a, b) {
+        if (a === b) {
+            return true;
+        }
+        return a.url === b.url;
+    }
+
     constructor() {
         this.url = null;
     }
