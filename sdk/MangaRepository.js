@@ -1,15 +1,32 @@
-const AbstractListLatestOperation = require('./operations/AbstractListLatestOperation');
 const MangaHandle = require('./MangaHandle');
 const ChapterHandle = require('./ChapterHandle');
 const PageHandle = require('./PageHandle');
 const Filters = require('./Filters');
 const assert = require('assert');
-const AbstractSearchOperation = require('./operations/AbstractSearchOperation');
 const SearchOptions = require('./SearchOptions');
 const AbstractCapabilitiesOperation = require('./operations/AbstractCapabilitiesOperation');
 const AbstractGetMangaOperation = require('./operations/AbstractGetMangaOperation');
 const AbstractGetPageOperation = require('./operations/AbstractGetPageOperation');
 const AbstractGetChapterOperation = require('./operations/AbstractGetChapterOperation');
+const AbstractSearchOperation = require('./operations/AbstractSearchOperation');
+const AbstractListLatestOperation = require('./operations/AbstractListLatestOperation');
+
+const VALID_OPERATIONS = [
+    AbstractCapabilitiesOperation,
+    AbstractGetChapterOperation,
+    AbstractGetMangaOperation,
+    AbstractGetPageOperation,
+    AbstractSearchOperation,
+    AbstractListLatestOperation,
+];
+
+function validateOperation(operation) {
+    assert.equal(typeof operation, 'function', `Expected an operation but got ${operation}`);
+    const isKnown = VALID_OPERATIONS.some(o => operation.prototype instanceof o);
+    if (!isKnown) {
+        assert(isKnown, `Invalid operation ${operation.name}, must extend one of ${VALID_OPERATIONS.map(o => o.name)}`);
+    }
+}
 
 /* eslint-disable no-unused-vars */
 class MangaRepository {
@@ -18,7 +35,7 @@ class MangaRepository {
     }
 
     addOperation(operation) {
-        assert.equal(typeof operation, 'function', `Expected an operation but got ${operation}`);
+        validateOperation(operation);
         this.operations.push(operation);
     }
 

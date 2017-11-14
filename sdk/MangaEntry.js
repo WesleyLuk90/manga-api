@@ -12,10 +12,22 @@ module.exports = class MangaEntry {
         return lodash.isEqual(a, b);
     }
 
+    static deserialize(data) {
+        return MangaEntry.create(MangaHandle.deserializeNullable(data.mangaHandle))
+            .setChapterHandle(ChapterHandle.deserializeNullable(data.chapterHandle));
+    }
+
     constructor(mangaHandle) {
         assert(mangaHandle instanceof MangaHandle);
         this.mangaHandle = mangaHandle;
         this.chapterHandle = null;
+    }
+
+    serialize() {
+        return {
+            mangaHandle: MangaHandle.serializeNullable(this.mangaHandle),
+            chapterHandle: ChapterHandle.serializeNullable(this.chapterHandle),
+        };
     }
 
     getMangaHandle() {
@@ -23,7 +35,7 @@ module.exports = class MangaEntry {
     }
 
     setChapterHandle(chapterHandle) {
-        assert(chapterHandle instanceof ChapterHandle);
+        assert(chapterHandle instanceof ChapterHandle || chapterHandle === null);
         this.chapterHandle = chapterHandle;
         return this;
     }

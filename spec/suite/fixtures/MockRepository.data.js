@@ -43,4 +43,8 @@ module.exports = {
         searching: true,
         listingLatest: true,
     },
+    list_latest_tests: [{
+        iterationCount: 75,
+        optionalChapters: true,
+    }],
 };

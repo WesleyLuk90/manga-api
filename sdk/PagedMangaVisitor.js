@@ -12,6 +12,21 @@ module.exports = class PagedMangaVisitor extends MangaVisitor {
         this.nextPageIndex = 0;
     }
 
+    serialize() {
+        return {
+            page: !this.page ? this.page : this.page.map(p => p.serialize()),
+            nextIndex: this.nextIndex,
+            nextPageIndex: this.nextPageIndex,
+        };
+    }
+
+    deserialize(data) {
+        this.page = !data.page ? null : data.page.map(p => MangaEntry.deserialize(p));
+        this.nextIndex = data.nextIndex;
+        this.nextPageIndex = data.nextPageIndex;
+        return this;
+    }
+
     getNextPage() {
         if (!this.page || this.nextIndex >= this.page.length) {
             const last = this.page && this.page[this.page.length - 1];

@@ -10,7 +10,7 @@ module.exports = function setupChapterTests(repository, fixture) {
 
     it('should get chapter data', () => {
         return bluebird.mapSeries(fixture.chapter_tests, (chapter) => {
-            const chapterHandle = ChapterHandle.unserialize(chapter.handle);
+            const chapterHandle = ChapterHandle.deserialize(chapter.handle);
             expect(repository.isForHandle(chapterHandle)).toBe(true);
             return repository.getChapter(chapterHandle)
                 .then((chapterResults) => {

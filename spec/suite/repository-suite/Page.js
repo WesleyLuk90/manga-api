@@ -10,7 +10,7 @@ module.exports = function setupPageTests(repository, fixture) {
 
     it('should get page data', () => {
         return bluebird.mapSeries(fixture.page_tests, (pageData) => {
-            const pageHandle = PageHandle.unserialize(pageData.handle);
+            const pageHandle = PageHandle.deserialize(pageData.handle);
             expect(repository.isForHandle(pageHandle)).toBe(true);
             return repository.getPage(pageHandle)
                 .then((pageResults) => {

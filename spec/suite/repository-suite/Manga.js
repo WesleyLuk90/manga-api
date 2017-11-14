@@ -10,7 +10,7 @@ module.exports = function setupMangaTests(repository, fixture) {
 
     it('should get manga data', () => {
         return bluebird.mapSeries(fixture.manga_tests, (manga) => {
-            const mangaHandle = MangaHandle.unserialize(manga.handle);
+            const mangaHandle = MangaHandle.deserialize(manga.handle);
             expect(repository.isForHandle(mangaHandle)).toBe(true);
             return repository.getManga(mangaHandle)
                 .then((mangaResults) => {

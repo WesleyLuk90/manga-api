@@ -6,8 +6,22 @@ class UrlHandle {
         return new this().setUrl(url);
     }
 
-    static unserialize(data) {
+    static deserialize(data) {
         return this.fromUrl(data);
+    }
+
+    static serializeNullable(handle) {
+        if (!handle) {
+            return null;
+        }
+        return handle.serialize();
+    }
+
+    static deserializeNullable(data) {
+        if (!data) {
+            return null;
+        }
+        return this.deserialize(data);
     }
 
     static equals(a, b) {

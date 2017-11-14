@@ -1,3 +1,4 @@
+const Serializer = require('./Serializer');
 const UrlHandle = require('../sdk/UrlHandle');
 
 class RepositoryList {
@@ -6,6 +7,7 @@ class RepositoryList {
         this.allRepositories = [];
         this.repositoriesByName = new Map();
     }
+
     add(repository, skipList) {
         if (!skipList) {
             this.repositories.push(repository);
@@ -14,6 +16,7 @@ class RepositoryList {
         this.repositoriesByName.set(repository.getName(), repository);
         return this;
     }
+
     getAll() {
         return this.repositories.slice();
     }
@@ -31,6 +34,10 @@ class RepositoryList {
         }
         return this.allRepositories
             .filter(r => r.isForHandle(handle))[0] || null;
+    }
+
+    getSerializer() {
+        return new Serializer(this);
     }
 }
 

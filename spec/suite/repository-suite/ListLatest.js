@@ -64,6 +64,31 @@ module.exports = function setupListLatestTest(repository, data) {
             });
         });
 
+        it('should serialize and continue', () => {
+            const visitor1 = repository.listLatest();
+
+            const list = [];
+            let i = 1;
+            return visitor1.visit((mangaEntry) => {
+                    list.push(mangaEntry);
+                    return i++ < 5;
+                })
+                .then(() => {
+                    const serialized = visitor1.serialize();
+                    const visitor2 = repository.listLatest().deserialize(serialized);
+                    expect(visitor1).toEqual(visitor2);
+
+                    return visitor2.visit((mangaEntry) => {
+                        list.push(mangaEntry);
+                        return i++ < 10;
+                    });
+                })
+                .then(() => {
+                    expect(list.length).toBe(10);
+                    checkNoDuplicates(list);
+                });
+        });
+
         it('should propagate a thrown error', () => {
             const error = new Error('some error');
             return repository.listLatest()

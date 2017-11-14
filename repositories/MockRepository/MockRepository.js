@@ -1,3 +1,4 @@
+const MockListLatest = require('./MockListLatest');
 const MangaRepository = require('../../sdk/MangaRepository');
 const MangaHandle = require('../../sdk/MangaHandle');
 const MockSearchOperation = require('./MockSearchOperation');
@@ -14,14 +15,11 @@ class MockRepository extends MangaRepository {
         this.addOperation(MockGetMangaOperation);
         this.addOperation(MockGetChapterOperation);
         this.addOperation(MockGetPageOperation);
+        this.addOperation(MockListLatest);
     }
 
     isForHandle(handle) {
         return !!handle.url.match(/^mock:\/\//);
-    }
-
-    listLatest() {
-        return Promise.resolve([MangaHandle.fromUrl('mock://manga'), MangaHandle.fromUrl('mock://manga')]);
     }
 }
 module.exports = MockRepository;

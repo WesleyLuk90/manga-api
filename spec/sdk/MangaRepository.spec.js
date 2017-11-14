@@ -20,17 +20,14 @@ describe('MangaRepository', () => {
 
     describe('operations', () => {
         it('should add operations', () => {
-            class AbstractOperation {
-
-            }
-            class Impl extends AbstractOperation {
+            class Impl extends AbstractGetMangaOperation {
 
             }
 
             const repo = new MangaRepository();
             repo.addOperation(Impl);
-            expect(repo.getOperation(AbstractOperation)).toBe(Impl);
-            expect(repo.get(AbstractOperation)).toEqual(jasmine.any(Impl));
+            expect(repo.getOperation(AbstractGetMangaOperation)).toBe(Impl);
+            expect(repo.get(AbstractGetMangaOperation)).toEqual(jasmine.any(Impl));
         });
 
         it('should ensure operations are valid', () => {
