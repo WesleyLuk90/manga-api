@@ -1,4 +1,6 @@
 const path = require('path');
+const Ajv = require('ajv');
+const schema = require('./fixture_schema');
 
 module.exports = class FixtureLoader {
     static loadDefaultFixture(repository) {
@@ -15,6 +17,12 @@ module.exports = class FixtureLoader {
                 throw e;
             }
             console.warn(`No test data found at ${dataPath}`);
+        }
+        const ajv = new Ajv();
+        const valid = ajv.validate(schema, data);
+        if (!valid) {
+            console.error(ajv.errors);
+            throw new Error(ajv.errorsText());
         }
         return data;
     }
