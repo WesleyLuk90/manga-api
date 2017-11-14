@@ -7,6 +7,7 @@ describe('manga-api', () => {
         expect(exportList).toContain('RepositoryList');
         expect(exportList).toContain('Manga');
         expect(exportList).toContain('MangaHandle');
+        expect(exportList).toContain('MangaEntry');
         expect(exportList).toContain('Chapter');
         expect(exportList).toContain('ChapterHandle');
         expect(exportList).toContain('Page');
@@ -30,6 +31,8 @@ describe('manga-api', () => {
         expect(sdkExportList).toContain('AbstractListLatestOperation');
         expect(sdkExportList).toContain('AbstractSearchOperation');
         expect(sdkExportList).toContain('MangaRepository');
+        expect(sdkExportList).toContain('MangaVisitor');
+        expect(sdkExportList).toContain('PagedMangaVisitor');
     });
 
     it('should expose toolkit api', () => {
@@ -37,5 +40,6 @@ describe('manga-api', () => {
         expect(toolkitExportList).toContain('HtmlToolkit');
         expect(toolkitExportList).toContain('TextParser');
         expect(toolkitExportList).toContain('Request');
+        expect(toolkitExportList).toContain('UrlNormalizer');
     });
 });

@@ -1,3 +1,7 @@
+const UrlNormalizer = require('./repositories/UrlNormalizer');
+const MangaEntry = require('./sdk/MangaEntry');
+const MangaVisitor = require('./sdk/MangaVisitor');
+const PagedMangaVisitor = require('./sdk/PagedMangaVisitor');
 const Request = require('./repositories/Request');
 const MangaRepository = require('./sdk/MangaRepository');
 const RepositoryList = require('./repositories/RepositoryList');
@@ -26,6 +30,7 @@ module.exports = {
     RepositoryList,
     Manga,
     MangaHandle,
+    MangaEntry,
     Chapter,
     ChapterHandle,
     Page,
@@ -40,6 +45,8 @@ module.exports = {
         AbstractListLatestOperation,
         AbstractSearchOperation,
         MangaRepository,
+        MangaVisitor,
+        PagedMangaVisitor,
     },
     Testing: {
         FixtureLoader,
@@ -49,5 +56,6 @@ module.exports = {
         HtmlToolkit,
         TextParser,
         Request,
+        UrlNormalizer,
     },
 };
