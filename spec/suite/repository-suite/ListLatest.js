@@ -21,7 +21,8 @@ module.exports = function setupListLatestTest(repository, data) {
     function validateMangaEntry(mangaEntry, testCase) {
         expect(mangaEntry).toEqual(jasmine.any(MangaEntry));
         expect(mangaEntry.getMangaHandle()).toEqual(jasmine.any(MangaHandle));
-        if (testCase.hasChapters) {
+        if (testCase.hasChapters ||
+            (testCase.optionalChapters && mangaEntry.getChapterHandle() != null)) {
             expect(mangaEntry.getChapterHandle()).toEqual(jasmine.any(ChapterHandle));
         } else {
             expect(mangaEntry.getChapterHandle()).toBe(null);

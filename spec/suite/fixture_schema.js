@@ -60,6 +60,9 @@ module.exports = {
                     hasChapters: {
                         type: 'boolean',
                     },
+                    optionalChapters: {
+                        type: 'boolean',
+                    },
                 },
                 additionalProperties: false,
             },
