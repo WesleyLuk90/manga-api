@@ -1,11 +1,12 @@
 const lodash = require('lodash');
+const Manga = require('../../sdk/Manga');
 const MangaHandle = require('../../sdk/MangaHandle');
 const MangaEntry = require('../../sdk/MangaEntry');
 const PagedMangaVisitor = require('../../sdk/PagedMangaVisitor');
 
 describe('PagedMangaVisitor', () => {
     function makeEntry(i) {
-        return MangaEntry.create(MangaHandle.fromUrl(String(i)));
+        return MangaEntry.create(new Manga(MangaHandle.fromUrl(String(i))));
     }
 
     class TestPagedMangaVisitor extends PagedMangaVisitor {

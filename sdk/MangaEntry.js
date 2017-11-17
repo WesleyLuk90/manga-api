@@ -1,25 +1,29 @@
 const assert = require('assert');
 const lodash = require('lodash');
 const ChapterHandle = require('./ChapterHandle');
-const MangaHandle = require('./MangaHandle');
+const Manga = require('./Manga');
 
 module.exports = class MangaEntry {
-    static create(mangaHandle) {
-        return new MangaEntry(mangaHandle);
+    static create(manga) {
+        return new MangaEntry(manga);
     }
 
     static equals(a, b) {
-        return lodash.isEqual(a, b);
+        if (a == null || b == null) {
+            return lodash.isEqual(a, b);
+        }
+        return lodash.isEqual(a.getMangaHandle(), b.getMangaHandle()) &&
+            lodash.isEqual(a.getChapterHandle(), b.getChapterHandle());
     }
 
-    constructor(mangaHandle) {
-        assert(mangaHandle instanceof MangaHandle);
-        this.mangaHandle = mangaHandle;
+    constructor(manga) {
+        assert(manga instanceof Manga);
+        this.manga = manga;
         this.chapterHandle = null;
     }
 
     getMangaHandle() {
-        return this.mangaHandle;
+        return this.manga.getMangaHandle();
     }
 
     setChapterHandle(chapterHandle) {
