@@ -1,4 +1,6 @@
 const lodash = require('lodash');
+const Manga = require('../../sdk/Manga');
+const TextParser = require('../TextParser');
 const PagedMangaVisitor = require('../../sdk/PagedMangaVisitor');
 const ChapterHandle = require('../../sdk/ChapterHandle');
 const MangaEntry = require('../../sdk/MangaEntry');
@@ -21,7 +23,7 @@ class MangaFoxMangaVisitor extends PagedMangaVisitor {
                 const mangaUpdates = $('#updates li');
                 return lodash(mangaUpdates)
                     .map((update) => {
-                        const manga = UrlNormalizer.fromAnchor($(update).find('.title a')).get();
+                        const manga = this.createManga($, update);
                         const chapters = Array.from($(update).find('.chapter a'))
                             .map(link => UrlNormalizer.fromAnchor($(link)).get());
                         return this.createChapterEntries(manga, chapters);
@@ -31,9 +33,17 @@ class MangaFoxMangaVisitor extends PagedMangaVisitor {
             });
     }
 
+    createManga($, update) {
+        const anchor = $(update).find('.title a');
+        const mangaLink = UrlNormalizer.fromAnchor(anchor).get();
+        const mangaName = TextParser.create(anchor).get();
+        const manga = new Manga(MangaHandle.fromUrl(mangaLink)).setName(mangaName);
+        return manga;
+    }
+
     createChapterEntries(manga, chapters) {
         return chapters.map(chapterLink =>
-            MangaEntry.create(MangaHandle.fromUrl(manga))
+            MangaEntry.create(manga)
             .setChapterHandle(ChapterHandle.fromUrl(chapterLink)));
     }
 

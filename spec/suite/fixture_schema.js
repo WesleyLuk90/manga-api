@@ -63,6 +63,18 @@ module.exports = {
                     optionalChapters: {
                         type: 'boolean',
                     },
+                    hasProperties: {
+                        type: 'array',
+                        items: {
+                            type: 'string',
+                        },
+                    },
+                    optionalProperties: {
+                        type: 'array',
+                        items: {
+                            type: 'string',
+                        },
+                    },
                 },
                 additionalProperties: false,
             },

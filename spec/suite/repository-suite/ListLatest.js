@@ -1,4 +1,5 @@
 const assert = require('assert');
+const Manga = require('../../../sdk/Manga');
 const ChapterHandle = require('../../../sdk/ChapterHandle');
 const MangaHandle = require('../../../sdk/MangaHandle');
 const MangaEntry = require('../../../sdk/MangaEntry');
@@ -20,6 +21,13 @@ module.exports = function setupListLatestTest(repository, data) {
 
     function validateMangaEntry(mangaEntry, testCase) {
         expect(mangaEntry).toEqual(jasmine.any(MangaEntry));
+        const manga = mangaEntry.getManga();
+        expect(manga).toEqual(jasmine.any(Manga));
+        if (testCase.hasProperties) {
+            testCase.hasProperties.forEach((property) => {
+                expect(manga[property]).toBeTruthy();
+            });
+        }
         expect(mangaEntry.getMangaHandle()).toEqual(jasmine.any(MangaHandle));
         if (testCase.hasChapters ||
             (testCase.optionalChapters && mangaEntry.getChapterHandle() != null)) {

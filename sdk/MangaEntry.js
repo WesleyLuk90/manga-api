@@ -22,6 +22,10 @@ module.exports = class MangaEntry {
         this.chapterHandle = null;
     }
 
+    getManga() {
+        return this.manga;
+    }
+
     getMangaHandle() {
         return this.manga.getMangaHandle();
     }
