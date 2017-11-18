@@ -1,3 +1,4 @@
+const MangaSerializer = require('./sdk/MangaSerializer');
 const UrlNormalizer = require('./repositories/UrlNormalizer');
 const MangaEntry = require('./sdk/MangaEntry');
 const MangaVisitor = require('./sdk/MangaVisitor');
@@ -37,6 +38,7 @@ module.exports = {
     PageHandle,
     Fields,
     Filters,
+    MangaSerializer,
     SDK: {
         AbstractCapabilitiesOperation,
         AbstractGetChapterOperation,
