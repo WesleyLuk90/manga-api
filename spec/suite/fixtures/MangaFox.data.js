@@ -99,6 +99,7 @@ module.exports = {
         {
             iterationCount: 100,
             hasChapters: true,
+            hasProperties: ['name'],
         },
     ],
 };

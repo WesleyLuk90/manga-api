@@ -1,7 +1,16 @@
 const assert = require('assert');
 const HtmlToolkit = require('./HtmlToolkit');
 
+/**
+ * Provides a way to parse the text of elements
+ * @exports repositories/TextParser
+ */
 module.exports = class TextParser {
+
+    /**
+     * Utility method to create a TextParser from a cheerio elemtn
+     * @param {cheerio} ele The element to get the text content from
+     */
     static create(ele) {
         return new TextParser(HtmlToolkit.text(ele));
     }
@@ -10,6 +19,10 @@ module.exports = class TextParser {
         return new TextParser(text);
     }
 
+    /**
+     * Creates a new text parser
+     * @param {String} text The base text
+     */
     constructor(text) {
         assert.equal(typeof text, 'string');
         this.text = text.trim();
