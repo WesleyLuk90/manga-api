@@ -1,5 +1,6 @@
 const assert = require('assert');
 const lodash = require('lodash');
+const MangaSerializer = require('./MangaSerializer');
 const MangaHandle = require('./MangaHandle');
 const ChapterHandle = require('./ChapterHandle');
 const Manga = require('./Manga');
@@ -18,7 +19,7 @@ module.exports = class MangaEntry {
     }
 
     static deserialize(data) {
-        return MangaEntry.create(MangaHandle.deserializeNullable(data.mangaHandle))
+        return MangaEntry.create(MangaSerializer.deserialize(data.manga))
             .setChapterHandle(ChapterHandle.deserializeNullable(data.chapterHandle));
     }
 
@@ -30,7 +31,7 @@ module.exports = class MangaEntry {
 
     serialize() {
         return {
-            mangaHandle: MangaHandle.serializeNullable(this.mangaHandle),
+            manga: MangaSerializer.serialize(this.manga),
             chapterHandle: ChapterHandle.serializeNullable(this.chapterHandle),
         };
     }

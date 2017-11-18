@@ -1,16 +1,17 @@
-const Utils = require('./Utils');
+const ChapterHandle = require('./ChapterHandle');
+const MangaHandle = require('./MangaHandle');
+const Models = require('./Models');
 
 class Manga {
+    static create(mangaHandle) {
+        return new Manga(mangaHandle);
+    }
+
     constructor(mangaHandle) {
         if (mangaHandle == null) {
             throw new Error('A MangaHandle is required');
         }
         this.mangaHandle = mangaHandle;
-        this.name = null;
-        this.altNames = null;
-        this.chapters = null;
-        this.type = null;
-        this.tags = [];
     }
 
     getMangaHandle() {
@@ -43,16 +44,28 @@ class Manga {
     }
 }
 
-Utils.defineStringGetterSetter(Manga, 'previewImageUrl');
-Utils.defineStringGetterSetter(Manga, 'name');
-Utils.defineStringGetterSetter(Manga, 'releaseYear');
-Utils.defineStringGetterSetter(Manga, 'summary');
-Utils.defineStringGetterSetter(Manga, 'status');
-Utils.defineStringGetterSetter(Manga, 'type');
-Utils.defineArrayGetterSetter(Manga, 'altNames');
-Utils.defineArrayGetterSetter(Manga, 'authors');
-Utils.defineArrayGetterSetter(Manga, 'artists');
-Utils.defineArrayGetterSetter(Manga, 'genres');
-Utils.defineArrayGetterSetter(Manga, 'tags');
+Models.defineModel(Manga, {
+    fields: [
+        'previewImageUrl',
+        'name',
+        'releaseYear',
+        'summary',
+        'status',
+        'type',
+    ],
+    arrayFields: [
+        'altNames',
+        'authors',
+        'artists',
+        'genres',
+        'tags',
+    ],
+    typedFields: [
+        { id: 'mangaHandle', type: MangaHandle },
+    ],
+    typedArrayFields: [
+        { id: 'chapters', type: ChapterHandle },
+    ],
+});
 
 module.exports = Manga;

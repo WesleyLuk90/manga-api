@@ -11,14 +11,13 @@ describe('MangaSerializer', () => {
                     ChapterHandle.fromUrl('abc'),
                     ChapterHandle.fromUrl('abc'),
                 ]),
-            new Manga(new MangaHandle()),
+            new Manga(MangaHandle.fromUrl('handle')),
             null,
         ];
         testCases.forEach((testCase) => {
             const data = MangaSerializer.serialize(testCase);
             const newManga = MangaSerializer.deserialize(data);
             expect(newManga).toEqual(testCase);
-            expect(newManga).not.toBe(testCase);
         });
     });
 });

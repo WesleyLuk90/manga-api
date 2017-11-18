@@ -4,14 +4,14 @@ const MangaHandle = require('../../sdk/MangaHandle');
 const MangaEntry = require('../../sdk/MangaEntry');
 
 describe('MangaEntry', () => {
-    const entryA1 = MangaEntry.create(MangaHandle.fromUrl('A'));
-    const entryA2 = MangaEntry.create(MangaHandle.fromUrl('A'));
-    const entryB = MangaEntry.create(MangaHandle.fromUrl('B'));
-    const entryAC1 = MangaEntry.create(MangaHandle.fromUrl('A'))
+    const entryA1 = MangaEntry.create(Manga.create(MangaHandle.fromUrl('A')));
+    const entryA2 = MangaEntry.create(Manga.create(MangaHandle.fromUrl('A')));
+    const entryB1 = MangaEntry.create(Manga.create(MangaHandle.fromUrl('B')));
+    const entryAC1 = MangaEntry.create(Manga.create(MangaHandle.fromUrl('A')))
         .setChapterHandle(ChapterHandle.fromUrl('C'));
-    const entryAC2 = MangaEntry.create(MangaHandle.fromUrl('A'))
+    const entryAC2 = MangaEntry.create(Manga.create(MangaHandle.fromUrl('A')))
         .setChapterHandle(ChapterHandle.fromUrl('C'));
-    const entryBC = MangaEntry.create(MangaHandle.fromUrl('B'));
+    const entryBC = MangaEntry.create(Manga.create(MangaHandle.fromUrl('B')));
 
     it('should check for equality', () => {
         const testCases = [
@@ -42,7 +42,7 @@ describe('MangaEntry', () => {
         const testCases = [
             {
                 left: entryA1,
-                right: entryB,
+                right: entryB1,
             },
             {
                 left: entryA1,
