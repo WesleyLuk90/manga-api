@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 class UrlHandle {
     static fromUrl(url) {
         if (url == null) {
@@ -8,6 +10,10 @@ class UrlHandle {
 
     static deserialize(data) {
         return this.fromUrl(data);
+    }
+
+    static serialize(handle) {
+        return handle.serialize();
     }
 
     static serializeNullable(handle) {

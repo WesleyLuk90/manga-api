@@ -1,4 +1,3 @@
-const ChapterHandle = require('../../sdk/ChapterHandle');
 const Manga = require('../../sdk/Manga');
 const MangaHandle = require('../../sdk/MangaHandle');
 

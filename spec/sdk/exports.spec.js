@@ -14,6 +14,7 @@ describe('manga-api', () => {
         expect(exportList).toContain('PageHandle');
         expect(exportList).toContain('Fields');
         expect(exportList).toContain('Filters');
+        expect(exportList).toContain('MangaSerializer');
     });
 
     it('should expose testing api', () => {
