@@ -1,6 +1,17 @@
 const Utils = require('./Utils');
 
 class Manga {
+    static serialize(manga) {
+        if (!manga) {
+            return null;
+        }
+
+    }
+
+    static deserialize() {
+
+    }
+
     constructor(mangaHandle) {
         if (mangaHandle == null) {
             throw new Error('A MangaHandle is required');
