@@ -1,3 +1,5 @@
+const DependencyInjector = require('./DependencyInjector');
+const CreateHttpClientOperation = require('./operations/CreateHttpClientOperation');
 const MangaHandle = require('./MangaHandle');
 const ChapterHandle = require('./ChapterHandle');
 const PageHandle = require('./PageHandle');
@@ -18,11 +20,16 @@ const VALID_OPERATIONS = [
     AbstractGetPageOperation,
     AbstractSearchOperation,
     AbstractListLatestOperation,
+    CreateHttpClientOperation,
 ];
+
+function isAssignableFrom(klass1, klass2) {
+    return klass1.prototype instanceof klass2 || klass1 === klass2;
+}
 
 function validateOperation(operation) {
     assert.equal(typeof operation, 'function', `Expected an operation but got ${operation}`);
-    const isKnown = VALID_OPERATIONS.some(o => operation.prototype instanceof o);
+    const isKnown = VALID_OPERATIONS.some(o => isAssignableFrom(operation, o));
     if (!isKnown) {
         assert(isKnown, `Invalid operation ${operation.name}, must extend one of ${VALID_OPERATIONS.map(o => o.name)}`);
     }
@@ -32,6 +39,10 @@ function validateOperation(operation) {
 class MangaRepository {
     constructor() {
         this.operations = [];
+
+        this.addOperation(CreateHttpClientOperation);
+
+        this.injector = new DependencyInjector(this);
     }
 
     addOperation(operation) {
@@ -40,13 +51,13 @@ class MangaRepository {
     }
 
     getOperation(klass) {
-        return this.operations.filter(o => o.prototype instanceof klass)[0];
+        return this.operations.filter(o => isAssignableFrom(o, klass))[0];
     }
 
     get(klass) {
         const Operation = this.getOperation(klass);
-        assert(Operation, 'Not Implemented');
-        return new Operation();
+        assert(Operation, `${klass.name} Not Implemented`);
+        return this.injector.inject(new Operation());
     }
 
     getCapabilities() {
@@ -98,7 +109,7 @@ class MangaRepository {
 
     listLatest() {
         const operation = this.get(AbstractListLatestOperation);
-        return operation.listLatest();
+        return this.injector.inject(operation.listLatest());
     }
 }
 

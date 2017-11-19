@@ -4,7 +4,6 @@ const TextParser = require('../TextParser');
 const PagedMangaVisitor = require('../../sdk/PagedMangaVisitor');
 const ChapterHandle = require('../../sdk/ChapterHandle');
 const MangaEntry = require('../../sdk/MangaEntry');
-const Request = require('../Request');
 const MangaHandle = require('../../sdk/MangaHandle');
 const UrlNormalizer = require('../UrlNormalizer');
 const AbstractListLatestOperation = require('../../sdk/operations/AbstractListLatestOperation');
@@ -17,9 +16,8 @@ class MangaFoxMangaVisitor extends PagedMangaVisitor {
     }
 
     getPage(index) {
-        return Request.get(`http://mangafox.me/releases/${index + 1}.htm`)
-            .then((res) => {
-                const $ = res.document;
+        return this.httpClient.getDocument(`http://mangafox.me/releases/${index + 1}.htm`)
+            .then(($) => {
                 const mangaUpdates = $('#updates li');
                 return lodash(mangaUpdates)
                     .map((update) => {
@@ -55,6 +53,7 @@ class MangaFoxMangaVisitor extends PagedMangaVisitor {
             .map(handle => MangaEntry.create(handle));
     }
 }
+MangaFoxMangaVisitor.$inject = ['HttpClient'];
 
 module.exports = class MangaFoxListLatest extends AbstractListLatestOperation {
     listLatest() {
