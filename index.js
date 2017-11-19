@@ -1,3 +1,5 @@
+const HttpClient = require('./sdk/HttpClient');
+const CreateHttpClientOperation = require('./sdk/operations/CreateHttpClientOperation');
 const MangaSerializer = require('./sdk/MangaSerializer');
 const UrlNormalizer = require('./repositories/UrlNormalizer');
 const MangaEntry = require('./sdk/MangaEntry');
@@ -49,6 +51,8 @@ module.exports = {
         MangaRepository,
         MangaVisitor,
         PagedMangaVisitor,
+        CreateHttpClientOperation,
+        HttpClient,
     },
     Testing: {
         FixtureLoader,

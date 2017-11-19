@@ -31,9 +31,11 @@ describe('manga-api', () => {
         expect(sdkExportList).toContain('AbstractGetPageOperation');
         expect(sdkExportList).toContain('AbstractListLatestOperation');
         expect(sdkExportList).toContain('AbstractSearchOperation');
+        expect(sdkExportList).toContain('CreateHttpClientOperation');
         expect(sdkExportList).toContain('MangaRepository');
         expect(sdkExportList).toContain('MangaVisitor');
         expect(sdkExportList).toContain('PagedMangaVisitor');
+        expect(sdkExportList).toContain('HttpClient');
     });
 
     it('should expose toolkit api', () => {
