@@ -47,7 +47,7 @@ class MangaRepository {
 
     addOperation(operation) {
         validateOperation(operation);
-        this.operations.push(operation);
+        this.operations.unshift(operation);
     }
 
     getOperation(klass) {

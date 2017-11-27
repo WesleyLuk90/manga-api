@@ -4,6 +4,7 @@ const SearchOptions = require('../../sdk/SearchOptions');
 const AbstractSearchOperation = require('../../sdk/operations/AbstractSearchOperation');
 const AbstractCapabilitiesOperation = require('../../sdk/operations/AbstractCapabilitiesOperation');
 const AbstractGetMangaOperation = require('../../sdk/operations/AbstractGetMangaOperation');
+const CreateHttpClientOperation = require('../../sdk/operations/CreateHttpClientOperation');
 const MangaHandle = require('../../sdk/MangaHandle');
 
 describe('MangaRepository', () => {
@@ -102,6 +103,27 @@ describe('MangaRepository', () => {
                 .then(() => {
                     expect(Operation.prototype.getManga).toHaveBeenCalled();
                 });
+        });
+    });
+
+    describe('Inject', () => {
+        class MockHttpClient {
+
+        }
+        class MockCreateHttpClient extends CreateHttpClientOperation {
+            get() {
+                return new MockHttpClient();
+            }
+        }
+        class MockGetManga extends AbstractGetMangaOperation {}
+        MockGetManga.$inject = ['HttpClient'];
+
+        it('should inject operations', () => {
+            const repository = new MangaRepository();
+            repository.addOperation(MockGetManga);
+            repository.addOperation(MockCreateHttpClient);
+            const operation = repository.get(AbstractGetMangaOperation);
+            expect(operation.httpClient).toEqual(jasmine.any(MockHttpClient));
         });
     });
 });
