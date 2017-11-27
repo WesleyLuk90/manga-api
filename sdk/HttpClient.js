@@ -7,7 +7,7 @@ module.exports = class HttpClient {
     }
 
     getDocument(url) {
-        return this.agent.get(url)
+        return this.getRaw(url)
             .then((res) => {
                 return cheerio.load(res.text);
             });
