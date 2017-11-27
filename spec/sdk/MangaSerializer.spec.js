@@ -12,6 +12,9 @@ describe('MangaSerializer', () => {
                     ChapterHandle.fromUrl('abc'),
                 ]),
             new Manga(MangaHandle.fromUrl('handle')),
+            Manga.create(MangaHandle.fromUrl('handle'))
+                .setName('some name')
+                .setPreviewImageUrl('http://url'),
             null,
         ];
         testCases.forEach((testCase) => {

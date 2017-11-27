@@ -20,6 +20,7 @@ module.exports = class MangaSerializer {
             chapters: !manga.chapters ? manga.chapters : manga.getChapters().map(c => ChapterHandle.serialize(c)),
             type: manga.getType(),
             tags: manga.getTags(),
+            previewImageUrl: manga.getPreviewImageUrl(),
         };
     }
 
@@ -36,6 +37,7 @@ module.exports = class MangaSerializer {
             .setChapters(!data.chapters ? data.chapters : data.chapters.map(c => ChapterHandle.deserialize(c)))
             .setType(data.type)
             .setTags(data.tags)
+            .setPreviewImageUrl(data.previewImageUrl)
             .create();
     }
 };
