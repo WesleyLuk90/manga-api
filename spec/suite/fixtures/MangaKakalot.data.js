@@ -16,7 +16,7 @@ module.exports = {
             ],
         },
     }, {
-        handle: 'http://manganel.com/manga/black_clover',
+        handle: 'http://manganelo.com/manga/black_clover',
         results: {
             name: 'Black Clover',
             altNames: [],
@@ -25,7 +25,7 @@ module.exports = {
             genres: ['Action', 'Adult', 'Comedy', 'Fantasy', 'Sci fi', 'Shounen', 'Supernatural'],
             summary: () => {},
             chapters: {
-                96: 'http://manganel.com/chapter/black_clover/chapter_96',
+                96: 'http://manganelo.com/chapter/black_clover/chapter_96',
             },
         },
     }],
@@ -37,14 +37,14 @@ module.exports = {
             pages: lodash.range(15).map(i => `http://3.p.mpcdn.net/50441/1104811/${i + 1}.jpg`),
         },
     }, {
-        handle: 'http://manganel.com/chapter/black_clover/chapter_13',
+        handle: 'http://manganelo.com/chapter/black_clover/chapter_13',
         results: {
             title: '',
             chapter: '13',
             pages: {},
         },
     }, {
-        handle: 'http://manganel.com/chapter/black_clover/chapter_91',
+        handle: 'http://manganelo.com/chapter/black_clover/chapter_91',
         results: {
             title: 'Plasma Explosion',
             chapter: '91',

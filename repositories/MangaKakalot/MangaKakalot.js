@@ -16,7 +16,7 @@ module.exports = class MangaKakalot extends MangaRepository {
 
     isForHandle(handle) {
         return !!handle.url.match(/^http:\/\/mangakakalot\.com\//) ||
-            !!handle.url.match(/^http:\/\/manganel\.com\//) ||
+            !!handle.url.match(/^http:\/\/manganelo?\.com\//) ||
             !!handle.url.match(/^http:\/\/[a-z0-9.]*mpcdn\.net\//);
     }
 };
