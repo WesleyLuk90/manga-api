@@ -121,12 +121,12 @@ describe('MangaFox', () => {
     it('should generate page urls', () => {
         const mangaFox = new MangaFoxGetChapter();
 
-        const expected = 'http://mangafox.me/manga/white_epic/c060/5.html';
+        const expected = 'http://mangafox.la/manga/white_epic/c060/5.html';
 
-        expect(mangaFox._buildPageUrl('http://mangafox.me/manga/white_epic/c060/5.html', '5')).toBe(expected);
-        expect(mangaFox._buildPageUrl('http://mangafox.me/manga/white_epic/c060/', '5')).toBe(expected);
+        expect(mangaFox._buildPageUrl('http://mangafox.la/manga/white_epic/c060/5.html', '5')).toBe(expected);
+        expect(mangaFox._buildPageUrl('http://mangafox.la/manga/white_epic/c060/', '5')).toBe(expected);
 
-        expect(mangaFox._buildPageUrl('http://mangafox.me/manga/white_epic/c060/v10/', '5')).toBe('http://mangafox.me/manga/white_epic/c060/v10/5.html');
+        expect(mangaFox._buildPageUrl('http://mangafox.la/manga/white_epic/c060/v10/', '5')).toBe('http://mangafox.la/manga/white_epic/c060/v10/5.html');
     });
     it('should provide capabilities', () => {
         const mangaFox = new MangaFox();

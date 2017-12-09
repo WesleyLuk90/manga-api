@@ -2,7 +2,7 @@ const _ = require('lodash');
 
 module.exports = {
     manga_tests: [{
-        handle: 'http://mangafox.me/manga/a_love_for_sweet_things/',
+        handle: 'http://mangafox.la/manga/a_love_for_sweet_things/',
         results: {
             name: 'A Love for Sweet Things',
             altNames: [
@@ -17,23 +17,23 @@ module.exports = {
             status: 'Completed',
             previewImageUrl: /cover\.jpg/,
             chapters: [
-                'http://mangafox.me/manga/a_love_for_sweet_things/v01/c001/1.html',
-                'http://mangafox.me/manga/a_love_for_sweet_things/v01/c002/1.html',
-                'http://mangafox.me/manga/a_love_for_sweet_things/v01/c003/1.html',
+                'http://mangafox.la/manga/a_love_for_sweet_things/v01/c001/1.html',
+                'http://mangafox.la/manga/a_love_for_sweet_things/v01/c002/1.html',
+                'http://mangafox.la/manga/a_love_for_sweet_things/v01/c003/1.html',
             ],
         },
     }],
     chapter_tests: [{
-        handle: 'http://mangafox.me/manga/a_love_for_sweet_things/v01/c001/1.html',
+        handle: 'http://mangafox.la/manga/a_love_for_sweet_things/v01/c001/1.html',
         results: {
             chapter: '1',
             volume: '1',
             title: '',
-            pages: _.range(1, 52 + 1).map(n => `http://mangafox.me/manga/a_love_for_sweet_things/v01/c001/${n}.html`),
+            pages: _.range(1, 52 + 1).map(n => `http://mangafox.la/manga/a_love_for_sweet_things/v01/c001/${n}.html`),
         },
     }],
     page_tests: [{
-        handle: 'http://mangafox.me/manga/a_love_for_sweet_things/v01/c001/1.html',
+        handle: 'http://mangafox.la/manga/a_love_for_sweet_things/v01/c001/1.html',
         results: {
             imageUrl: /\.jpg/,
         },

@@ -18,7 +18,7 @@ module.exports = class MangaFoxSearch extends AbstractSearchOperation {
     }
 
     _buildSearch(filters) {
-        const url = 'http://mangafox.me/search.php';
+        const url = 'http://mangafox.la/search.php';
         const released = {
             released_method: 'eq',
             released: '',

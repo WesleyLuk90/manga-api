@@ -34,7 +34,7 @@ module.exports = class MangaFoxGetChapter extends AbstractGetChapterOperation {
     }
 
     _buildPageUrl(chapterUrl, pageKey) {
-        const match = chapterUrl.match(/^(.*mangafox\.me\/manga\/.*\/)[^/]*$/);
+        const match = chapterUrl.match(/^(.*mangafox\.la\/manga\/.*\/)[^/]*$/);
         if (!match) {
             throw new Error(`Failed to find base url in ${chapterUrl}`);
         }

@@ -19,7 +19,7 @@ class MangaFox extends MangaRepository {
     }
 
     isForHandle(handle) {
-        return !!handle.url.match(/^http:\/\/mangafox\.me\//);
+        return !!handle.url.match(/^http:\/\/mangafox\.la\//);
     }
 }
 

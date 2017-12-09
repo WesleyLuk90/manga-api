@@ -16,7 +16,7 @@ class MangaFoxMangaVisitor extends PagedMangaVisitor {
     }
 
     getPage(index) {
-        return this.httpClient.getDocument(`http://mangafox.me/releases/${index + 1}.htm`)
+        return this.httpClient.getDocument(`http://mangafox.la/releases/${index + 1}.htm`)
             .then(($) => {
                 const mangaUpdates = $('#updates li');
                 return lodash(mangaUpdates)
